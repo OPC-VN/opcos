@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpcOS Registry — component map</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b23; --panel2:#1c2330; --line:#2a3342;
+    --tx:#e6ebf2; --tx2:#93a0b4; --acc:#4f8ef7;
+    --core:#e5484d; --rec:#f5a524; --opt:#e2c541; --dep:#5a6472;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f6f7f9; --panel:#ffffff; --panel2:#eef1f5; --line:#dbe1ea; --tx:#1c2330; --tx2:#5b6576; --acc:#2563eb; }
+  }
+  *{box-sizing:border-box} body{margin:0;font:14px/1.55 "Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--tx);padding:28px 20px 60px}
+  .wrap{max-width:1180px;margin:0 auto}
+  h1{font-size:26px;margin:0 0 4px} .sub{color:var(--tx2);margin-bottom:26px}
+  /* layers diagram */
+  .layers{display:flex;flex-direction:column;gap:6px;margin:18px 0 30px}
+  .layer{display:flex;align-items:center;gap:14px;background:linear-gradient(90deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:10px;padding:10px 16px}
+  .layer .no{width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex:none}
+  .layer b{min-width:210px} .layer span{color:var(--tx2)}
+  .layer .chips{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .chip{font-size:11px;padding:2px 9px;border-radius:99px;border:1px solid var(--line);background:var(--panel);color:var(--tx2);white-space:nowrap}
+  /* filters */
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+  .fbtn{cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--tx);border-radius:99px;padding:5px 14px;font-size:13px}
+  .fbtn.on{background:var(--acc);border-color:var(--acc);color:#fff}
+  .fbtn.p-core.on{background:var(--core);border-color:var(--core)}
+  .fbtn.p-recommended.on{background:var(--rec);border-color:var(--rec);color:#1c1c1c}
+  .fbtn.p-optional.on{background:var(--opt);border-color:var(--opt);color:#1c1c1c}
+  .fbtn.p-deprecated.on{background:var(--dep);border-color:var(--dep)}
+  /* cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+  .card h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .badge{font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 8px;border-radius:99px;color:#fff}
+  .b-core{background:var(--core)} .b-recommended{background:var(--rec);color:#1c1c1c} .b-optional{background:var(--opt);color:#1c1c1c} .b-deprecated{background:var(--dep)}
+  .cat{font-size:11px;color:var(--tx2);border:1px solid var(--line);border-radius:99px;padding:1px 8px}
+  .card p{margin:0;color:var(--tx)} .card .when{color:var(--tx2);font-size:13px}
+  .kv{font-size:12px;color:var(--tx2);display:grid;grid-template-columns:70px 1fr;gap:2px 8px}
+  .kv code{background:var(--panel2);border-radius:5px;padding:1px 6px;font-size:11.5px;overflow-wrap:anywhere}
+  .kv a{color:var(--acc);text-decoration:none;overflow-wrap:anywhere} .kv a:hover{text-decoration:underline}
+  .count{color:var(--tx2);font-size:13px;margin:0 0 10px}
+  @media(max-width:640px){ .layer b{min-width:0} .layer .chips{display:none} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>OpcOS Registry</h1>
+  <div class="sub">Map of every agent component on this machine — source: <code>registry.json</code> (updated <span id="upd"></span>). New machine: install in order core → recommended; weigh optional against real need. <em>This page ships with example data; <code>bootstrap/build-registry.ps1</code> regenerates it from your live registry.</em></div>
+
+  <div class="layers" id="layers"></div>
+
+  <div class="filters" id="catFilters"></div>
+  <div class="filters" id="prioFilters"></div>
+  <div class="count" id="count"></div>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+const REG = /*REGISTRY:BEGIN*/
+{
+  "updated": "2026-07-06",
+  "layers": [
+    { "id": "tool",       "label": "AI Tools (harness)",      "desc": "Claude Code · Codex CLI · Gemini/Antigravity — where you actually chat" },
+    { "id": "governance", "label": "Governance",              "desc": "one core rules file, deployed to every tool via adapters" },
+    { "id": "plugin",     "label": "Plugins & Skills",        "desc": "your marketplace + third-party stores + vendored toolkits" },
+    { "id": "mcp",        "label": "MCP Servers",             "desc": "bridges from tools to capabilities (browser, data, docs)" },
+    { "id": "offline",    "label": "Offline Tools",           "desc": "local engines: TTS, rendering, transcription" },
+    { "id": "pipeline",   "label": "Pipelines & Automation",  "desc": "scheduled systems that run on their own" },
+    { "id": "product",    "label": "Products",                "desc": "the repos your agents actually build" }
+  ],
+  "components": [
+    {
+      "name": "opcos",
+      "category": "governance",
+      "priority": "core",
+      "location": "~/.opcos",
+      "upstream": "your-org/your-opcos-fork",
+      "purpose": "The agent operating system itself: core governance rules, plugin marketplace, install scripts, and this registry.",
+      "when_to_use": "Always — the foundation of everything; the FIRST thing a new machine installs.",
+      "install": "git clone + bootstrap/install.ps1",
+      "update": "git pull + update script",
+      "storage": "homegrown-in-repo"
+    },
+    {
+      "name": "your-company-skills",
+      "category": "plugin",
+      "priority": "core",
+      "location": "~/.opcos/plugins/your-company-skills",
+      "upstream": "homegrown",
+      "purpose": "Self-written skills for your domain workflows, plus the operational skills of the framework itself (adopt-repo, system-audit, config-gc).",
+      "when_to_use": "Your domain work + operating the framework.",
+      "install": "claude plugin install your-company-skills@opcos (install script does this)",
+      "update": "via the opcos repo",
+      "storage": "homegrown-in-repo"
+    },
+    {
+      "name": "review-pack",
+      "category": "plugin",
+      "priority": "recommended",
+      "location": "~/.opcos/plugins/review-pack",
+      "upstream": "example-org/agent-skill-collection (MIT, cherry-picked)",
+      "purpose": "Cherry-picked and locally modified engineering skills: security review, language-specific reviewers, testing patterns.",
+      "when_to_use": "Code review, security escalation per core rules.",
+      "install": "claude plugin install review-pack@opcos",
+      "update": "manual cherry-pick from upstream (the copy has diverged — never pull blindly)",
+      "storage": "adopted-in-repo"
+    },
+    {
+      "name": "path-bound-toolkit",
+      "category": "plugin",
+      "priority": "optional",
+      "location": "~/.claude/skills/path-bound-toolkit (must live exactly there)",
+      "upstream": "example-org/path-bound-toolkit (MIT)",
+      "purpose": "An upstream toolkit that hard-codes its own install path and self-updates, so it cannot be packaged into the marketplace.",
+      "when_to_use": "Only in the one tool it supports; the exception that proves the storage law.",
+      "install": "install script clones upstream directly (see bootstrap/install.template.ps1 step 4)",
+      "update": "the toolkit's own upgrade command",
+      "storage": "vendored-outside"
+    },
+    {
+      "name": "browser-automation-mcp",
+      "category": "mcp",
+      "priority": "recommended",
+      "location": "npx @playwright/mcp@latest (registered in each tool)",
+      "upstream": "microsoft/playwright-mcp",
+      "purpose": "Browser automation for UI testing and dogfooding local apps.",
+      "when_to_use": "UI tests and app dogfooding — NOT for performance measurement (use a devtools-grade MCP for that; see the role-split in core rules).",
+      "install": "claude/codex mcp add playwright npx -y @playwright/mcp@latest",
+      "update": "npx @latest",
+      "storage": "store"
+    },
+    {
+      "name": "local-tts-engine",
+      "category": "offline",
+      "priority": "optional",
+      "location": "~/.tools/tts (venv + GPU runtime; models in HF cache)",
+      "upstream": "homegrown (wraps an open-source TTS model)",
+      "purpose": "Offline text-to-speech engine used for narration in media pipelines.",
+      "when_to_use": "Any narration work; too heavy to live inside the repo — hence homegrown-outside.",
+      "install": "copy folder + its own install.ps1 (creates venv, downloads models)",
+      "update": "in-place edits + pip",
+      "storage": "homegrown-outside",
+      "size": "6GB"
+    },
+    {
+      "name": "nightly-report-pipeline",
+      "category": "pipeline",
+      "priority": "optional",
+      "location": "~/.pipelines/nightly-report + a scheduled task",
+      "upstream": "homegrown",
+      "purpose": "Scheduled automation that renders and publishes a nightly report through your notify channel.",
+      "when_to_use": "Runs on schedule at autonomy tier auto-safe; publishing steps remain human-gated until promoted to full.",
+      "install": "copy folder + register the scheduled task through your notify wrapper",
+      "update": "in-place edits",
+      "storage": "homegrown-outside"
+    },
+    {
+      "name": "legacy-notes-plugin",
+      "category": "plugin",
+      "priority": "deprecated",
+      "location": "store (DISABLED)",
+      "upstream": "example-org/legacy-notes (MIT)",
+      "purpose": "Old note-taking plugin, superseded by your memory workflow.",
+      "when_to_use": "REMOVED 2026-07-01 (uninstalled, folder soft-deleted to trash) — entry kept for the audit trail.",
+      "install": "-",
+      "update": "-",
+      "storage": "store"
+    },
+    {
+      "name": "your-product",
+      "category": "product",
+      "priority": "core",
+      "location": "~/Code/your-product",
+      "upstream": "your-org/your-product",
+      "purpose": "Your product repo — the thing all these agents actually work on.",
+      "when_to_use": "Daily; follows its own project rules file, which overrides the global core rules.",
+      "install": "git clone + follow the repo's own setup docs",
+      "update": "git",
+      "storage": "homegrown-outside"
+    }
+  ]
+}
+/*REGISTRY:END*/;
+const CATL = {governance:"Governance",plugin:"Plugin/Skill",mcp:"MCP Server",offline:"Offline Tool",pipeline:"Pipeline",product:"Product"};
+const PRIOS = ["core","recommended","optional","deprecated"];
+let fCat = null, fPrio = null;
+
+document.getElementById("upd").textContent = REG.updated;
+
+// layers diagram with component chips
+const layerMap = {tool:null, governance:"governance", plugin:"plugin", mcp:"mcp", offline:"offline", pipeline:"pipeline", product:"product"};
+const L = document.getElementById("layers");
+REG.layers.forEach((ly,i)=>{
+  const div = document.createElement("div"); div.className="layer";
+  const cat = layerMap[ly.id];
+  const comps = cat ? REG.components.filter(c=>c.category===cat && c.priority!=="deprecated").map(c=>c.name) : [];
+  div.innerHTML = `<div class="no">${i+1}</div><b>${ly.label}</b><span>${ly.desc}</span>
+    <div class="chips">${comps.slice(0,7).map(n=>`<span class="chip">${n}</span>`).join("")}${comps.length>7?`<span class="chip">+${comps.length-7}</span>`:""}</div>`;
+  L.appendChild(div);
+});
+
+function mkBtn(txt, cls, on){ const b=document.createElement("button"); b.className="fbtn "+cls; b.textContent=txt; b.onclick=on; return b; }
+const catF = document.getElementById("catFilters");
+catF.appendChild(mkBtn("All","",()=>{fCat=null;render();}));
+Object.keys(CATL).forEach(c=> catF.appendChild(mkBtn(CATL[c],"",()=>{fCat=c;render();})));
+const priF = document.getElementById("prioFilters");
+priF.appendChild(mkBtn("Any priority","",()=>{fPrio=null;render();}));
+PRIOS.forEach(p=> priF.appendChild(mkBtn(p,"p-"+p,()=>{fPrio=p;render();})));
+
+function ghLink(up){
+  if(!up) return null;
+  const m = up.match(/([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)/);
+  if(m && !/homegrown|private|native|npm|example|your-org/i.test(up.split("(")[0]) && up.includes("/")) return "https://github.com/"+m[1];
+  return null;
+}
+function render(){
+  // filter button states
+  [...catF.children].forEach((b,i)=> b.classList.toggle("on", (i===0&&!fCat) || b.textContent===CATL[fCat]));
+  [...priF.children].forEach((b,i)=> b.classList.toggle("on", (i===0&&!fPrio) || b.textContent===fPrio));
+  const items = REG.components
+    .filter(c=> (!fCat||c.category===fCat) && (!fPrio||c.priority===fPrio))
+    .sort((a,b)=> PRIOS.indexOf(a.priority)-PRIOS.indexOf(b.priority) || a.name.localeCompare(b.name));
+  document.getElementById("count").textContent = items.length + " component" + (items.length===1?"":"s");
+  const g = document.getElementById("grid"); g.innerHTML="";
+  items.forEach(c=>{
+    const gh = ghLink(c.upstream);
+    const d = document.createElement("div"); d.className="card";
+    d.innerHTML = `<h3>${c.name} <span class="badge b-${c.priority}">${c.priority}</span> <span class="cat">${CATL[c.category]||c.category}</span></h3>
+      <p>${c.purpose}</p>
+      <div class="when">${c.when_to_use}</div>
+      <div class="kv">
+        <span>Storage</span><code>${c.storage||""}${c.size?` · ${c.size}`:""}</code>
+        <span>Location</span><code>${c.location}</code>
+        <span>Install</span><code>${c.install}</code>
+        <span>Update</span><code>${c.update}</code>
+        <span>Upstream</span>${gh?`<a href="${gh}" target="_blank" rel="noopener">${c.upstream}</a>`:`<span>${c.upstream}</span>`}
+      </div>`;
+    g.appendChild(d);
+  });
+}
+render();
+</script>
+</body>
+</html>

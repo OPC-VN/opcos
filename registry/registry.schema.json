@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ducnguyen221/opcos/registry/registry.schema.json",
+  "title": "OpcOS component registry",
+  "description": "Central catalog of EVERY component installed on a machine (plugins, skills, MCP servers, offline tools, pipelines, products). Unlike an upstream/provenance manifest (which only tracks external sources), the registry answers: what does this machine have, what is it for, when do I use it, how does a new machine install it, and how important is it. Human-readable views (REGISTRY.md, docs/registry.html) are GENERATED from this file — edit here, never edit the generated files.",
+  "type": "object",
+  "required": ["updated", "layers", "components"],
+  "additionalProperties": false,
+  "properties": {
+    "$comment": {
+      "type": "string",
+      "description": "Free-form maintainer note explaining conventions."
+    },
+    "updated": {
+      "type": "string",
+      "format": "date",
+      "description": "Date (YYYY-MM-DD) of the last registry edit."
+    },
+    "layers": {
+      "type": "array",
+      "description": "The platform layers, bottom to top, used to render the layer diagram.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "desc"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Layer identifier. The conventional set is: tool, governance, plugin, mcp, offline, pipeline, product.",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "label": { "type": "string", "description": "Display name of the layer." },
+          "desc": { "type": "string", "description": "One-line description of what lives in this layer." }
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "description": "One entry per installed (or deliberately tracked) component. A component with no entry here is drift — a bug.",
+      "items": {
+        "type": "object",
+        "required": [
+          "name", "category", "priority", "location", "upstream",
+          "purpose", "when_to_use", "install", "update", "storage"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Unique component name."
+          },
+          "category": {
+            "type": "string",
+            "description": "Which layer the component belongs to.",
+            "enum": ["governance", "plugin", "mcp", "offline", "pipeline", "product"]
+          },
+          "priority": {
+            "type": "string",
+            "description": "Install priority for a new machine: core = install immediately; recommended = install unless the machine doesn't have that role; optional = install only on real need; deprecated = do not install / awaiting cleanup.",
+            "enum": ["core", "recommended", "optional", "deprecated"]
+          },
+          "storage": {
+            "type": "string",
+            "description": "The 3-branch storage law. adopted-in-repo = cherry-picked AND modified, lives inside the OpcOS repo (an upstream pull would overwrite your edits, so you own the copy). vendored-outside = whole repo / path-bound / has a runtime, cloned outside the repo; your patches live in vendor-adapt/ inside the repo. store = installed from the tool's first-party marketplace; the registry only records it. homegrown-in-repo = self-written, small text, lives in the repo. homegrown-outside = self-written but heavy (venv / models / output), lives outside in a well-known folder family.",
+            "enum": ["adopted-in-repo", "vendored-outside", "store", "homegrown-in-repo", "homegrown-outside"]
+          },
+          "location": {
+            "type": "string",
+            "description": "Where the component lives on disk (use ~ or $HOME, never absolute user paths) or which store hosts it."
+          },
+          "upstream": {
+            "type": "string",
+            "description": "Origin: owner/repo for external sources (with license note), or 'homegrown' for self-written components."
+          },
+          "purpose": {
+            "type": "string",
+            "description": "What the component does — one or two sentences."
+          },
+          "when_to_use": {
+            "type": "string",
+            "description": "The trigger: which situations call for this component (and any role-split notes versus similar components)."
+          },
+          "install": {
+            "type": "string",
+            "description": "How a new machine installs it: exact command, script, or pointer."
+          },
+          "update": {
+            "type": "string",
+            "description": "How it is kept up to date (store / package manager / cherry-pick / in-place edit)."
+          },
+          "size": {
+            "type": "string",
+            "description": "Optional approximate disk footprint (e.g. '250MB', '4.5GB') — record it for heavy components so cleanup decisions are informed."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "$comment": "EXAMPLE registry demonstrating each category, priority, and storage class. Copy this to the repo root as registry.json, replace the sample components with your real ones, then run bootstrap/build-registry.ps1 to generate REGISTRY.md + docs/registry.html. Edit ONLY this file — never the generated views.",
+  "updated": "2026-07-06",
+  "layers": [
+    { "id": "tool",       "label": "AI Tools (harness)",      "desc": "Claude Code · Codex CLI · Gemini/Antigravity — where you actually chat" },
+    { "id": "governance", "label": "Governance",              "desc": "one core rules file, deployed to every tool via adapters" },
+    { "id": "plugin",     "label": "Plugins & Skills",        "desc": "your marketplace + third-party stores + vendored toolkits" },
+    { "id": "mcp",        "label": "MCP Servers",             "desc": "bridges from tools to capabilities (browser, data, docs)" },
+    { "id": "offline",    "label": "Offline Tools",           "desc": "local engines: TTS, rendering, transcription" },
+    { "id": "pipeline",   "label": "Pipelines & Automation",  "desc": "scheduled systems that run on their own" },
+    { "id": "product",    "label": "Products",                "desc": "the repos your agents actually build" }
+  ],
+  "components": [
+    {
+      "name": "opcos",
+      "category": "governance",
+      "priority": "core",
+      "location": "~/.opcos",
+      "upstream": "your-org/your-opcos-fork",
+      "purpose": "The agent operating system itself: core governance rules, plugin marketplace, install scripts, and this registry.",
+      "when_to_use": "Always — the foundation of everything; the FIRST thing a new machine installs.",
+      "install": "git clone + bootstrap/install.ps1",
+      "update": "git pull + update script",
+      "storage": "homegrown-in-repo"
+    },
+    {
+      "name": "your-company-skills",
+      "category": "plugin",
+      "priority": "core",
+      "location": "~/.opcos/plugins/your-company-skills",
+      "upstream": "homegrown",
+      "purpose": "Self-written skills for your domain workflows, plus the operational skills of the framework itself (adopt-repo, system-audit, config-gc).",
+      "when_to_use": "Your domain work + operating the framework.",
+      "install": "claude plugin install your-company-skills@opcos (install script does this)",
+      "update": "via the opcos repo",
+      "storage": "homegrown-in-repo"
+    },
+    {
+      "name": "review-pack",
+      "category": "plugin",
+      "priority": "recommended",
+      "location": "~/.opcos/plugins/review-pack",
+      "upstream": "example-org/agent-skill-collection (MIT, cherry-picked)",
+      "purpose": "Cherry-picked and locally modified engineering skills: security review, language-specific reviewers, testing patterns.",
+      "when_to_use": "Code review, security escalation per core rules.",
+      "install": "claude plugin install review-pack@opcos",
+      "update": "manual cherry-pick from upstream (the copy has diverged — never pull blindly)",
+      "storage": "adopted-in-repo"
+    },
+    {
+      "name": "path-bound-toolkit",
+      "category": "plugin",
+      "priority": "optional",
+      "location": "~/.claude/skills/path-bound-toolkit (must live exactly there)",
+      "upstream": "example-org/path-bound-toolkit (MIT)",
+      "purpose": "An upstream toolkit that hard-codes its own install path and self-updates, so it cannot be packaged into the marketplace.",
+      "when_to_use": "Only in the one tool it supports; the exception that proves the storage law.",
+      "install": "install script clones upstream directly (see bootstrap/install.template.ps1 step 4)",
+      "update": "the toolkit's own upgrade command",
+      "storage": "vendored-outside"
+    },
+    {
+      "name": "browser-automation-mcp",
+      "category": "mcp",
+      "priority": "recommended",
+      "location": "npx @playwright/mcp@latest (registered in each tool)",
+      "upstream": "microsoft/playwright-mcp",
+      "purpose": "Browser automation for UI testing and dogfooding local apps.",
+      "when_to_use": "UI tests and app dogfooding — NOT for performance measurement (use a devtools-grade MCP for that; see the role-split in core rules).",
+      "install": "claude/codex mcp add playwright npx -y @playwright/mcp@latest",
+      "update": "npx @latest",
+      "storage": "store"
+    },
+    {
+      "name": "local-tts-engine",
+      "category": "offline",
+      "priority": "optional",
+      "location": "~/.tools/tts (venv + GPU runtime; models in HF cache)",
+      "upstream": "homegrown (wraps an open-source TTS model)",
+      "purpose": "Offline text-to-speech engine used for narration in media pipelines.",
+      "when_to_use": "Any narration work; too heavy to live inside the repo — hence homegrown-outside.",
+      "install": "copy folder + its own install.ps1 (creates venv, downloads models)",
+      "update": "in-place edits + pip",
+      "storage": "homegrown-outside",
+      "size": "6GB"
+    },
+    {
+      "name": "nightly-report-pipeline",
+      "category": "pipeline",
+      "priority": "optional",
+      "location": "~/.pipelines/nightly-report + a scheduled task",
+      "upstream": "homegrown",
+      "purpose": "Scheduled automation that renders and publishes a nightly report through your notify channel.",
+      "when_to_use": "Runs on schedule at autonomy tier auto-safe; publishing steps remain human-gated until promoted to full.",
+      "install": "copy folder + register the scheduled task through your notify wrapper",
+      "update": "in-place edits",
+      "storage": "homegrown-outside"
+    },
+    {
+      "name": "legacy-notes-plugin",
+      "category": "plugin",
+      "priority": "deprecated",
+      "location": "store (DISABLED)",
+      "upstream": "example-org/legacy-notes (MIT)",
+      "purpose": "Old note-taking plugin, superseded by your memory workflow.",
+      "when_to_use": "REMOVED 2026-07-01 (uninstalled, folder soft-deleted to trash) — entry kept for the audit trail.",
+      "install": "-",
+      "update": "-",
+      "storage": "store"
+    },
+    {
+      "name": "your-product",
+      "category": "product",
+      "priority": "core",
+      "location": "~/Code/your-product",
+      "upstream": "your-org/your-product",
+      "purpose": "Your product repo — the thing all these agents actually work on.",
+      "when_to_use": "Daily; follows its own project rules file, which overrides the global core rules.",
+      "install": "git clone + follow the repo's own setup docs",
+      "update": "git",
+      "storage": "homegrown-outside"
+    }
+  ]
+}
