@@ -5,6 +5,7 @@ import { blogPosts, newsIssues } from './content.mjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../sites');
 const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const unique = (items, key) => new Set(items.map(item => item[key])).size === items.length;
+const validDate = value => /^\d{4}-\d{2}-\d{2}$/.test(value || '') && !Number.isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0,10) === value;
 if (!unique(blogPosts, 'slug') || !unique(newsIssues, 'id')) throw new Error('Duplicate content ID');
 for (const p of blogPosts) {
  if (p.approved !== true || !p.title || !p.slug || !p.description || !p.topic || !p.body || !p.image || !/^[a-z0-9-]+$/.test(p.slug)) throw new Error('Blog chưa đủ dữ liệu hoặc chưa duyệt');
@@ -12,7 +13,7 @@ for (const p of blogPosts) {
  if (!existsSync(resolve(root, 'blog', p.slug, p.image))) throw new Error('Thiếu ảnh Blog: '+p.slug);
 }
 for (const n of newsIssues) {
- if (n.approved !== true || !/^[\w-]{11}$/.test(n.id) || !/^\d{4}-\d\d-\d\d$/.test(n.date) || !n.title || !n.description || !/^\d{4}-\d\d-\d\d$/.test(n.issueDate) || !n.issueTitle || !n.summary || !Number.isFinite(Date.parse(n.publishedAt))) throw new Error('Video chưa đủ dữ liệu hoặc chưa duyệt');
+ if (n.approved !== true || !/^[\w-]{11}$/.test(n.id) || !validDate(n.date) || !n.title || !n.description || !validDate(n.issueDate) || !n.issueTitle?.trim() || !n.summary?.trim() || !Number.isFinite(Date.parse(n.publishedAt))) throw new Error('Video chưa đủ dữ liệu hoặc chưa duyệt');
 }
 const render = (template, main) => template.replace(/<main id="main"[\s\S]*?<\/main>/, main).replace('<meta name="robots" content="noindex,follow">','');
 const blogPath=resolve(root,'blog/index.html'), newsPath=resolve(root,'news/index.html');
@@ -46,8 +47,8 @@ const card=(items, featured=false)=>{
  const fallback=items.map(v=>`<a href="https://www.youtube.com/watch?v=${v.id}">${escape(v.kind)}: ${escape(cleanTitle(v))}</a>`).join(' · ');
  return `<article class="video-card${featured?' video-card-featured':''}" data-video-card><div class="video-stage${first.kind==='Short'?' is-short':''}"><button class="video-poster" type="button" data-video-play data-id="${first.id}" aria-label="Phát ${escape(displayTitle)}"><img src="https://i.ytimg.com/vi/${first.id}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="video-play-icon" aria-hidden="true">▶</span><span class="video-play-caption">Phát video</span></button></div><div class="video-card-body"><div class="video-meta"><span>OPC NEWS</span><time datetime="${first.issueDate || first.date}">${(first.issueDate || first.date).split('-').reverse().join('/')}</time></div><h3>${escape(displayTitle)}</h3><div class="video-formats" aria-label="Chọn định dạng video">${buttons}</div><details class="video-details"><summary> Xem chi tiết </summary><p>${escape(first.summary || first.description)}</p></details><div class="video-links">${links}<noscript>${fallback}</noscript></div></div></article>`;
 };
-const years=[...new Set(issues.slice(1).map(g=>g[0].date.slice(0,4)))];
-const archive=years.map(year=>`<section class="news-year"><h3>${year}</h3><div class="news-grid">${issues.slice(1).filter(g=>g[0].date.startsWith(year)).map(g=>card(g)).join('')}</div></section>`).join('');
+const years=[...new Set(issues.slice(1).map(g=>g[0].issueDate.slice(0,4)))];
+const archive=years.map(year=>`<section class="news-year"><h3>${year}</h3><div class="news-grid">${issues.slice(1).filter(g=>g[0].issueDate.startsWith(year)).map(g=>card(g)).join('')}</div></section>`).join('');
 const newsMain=`<main id="main" class="wrap editorial-page" tabindex="-1"><div class="intro editorial-intro"><p class="eyebrow">OPCOS / NEWS</p><h1>Tin tức, nhìn từ việc thật.</h1><p class="lede">Khám phá những câu chuyện mới về AI và One-Person Company. Chọn bản đầy đủ hoặc Short để xem ngay.</p></div>${issues.length?`<section class="block" aria-labelledby="news-latest"><div class="editorial-section-head"><div><p class="eyebrow">MỚI NHẤT</p><h2 id="news-latest">Xem ngay</h2></div></div>${card(issues[0],true)}</section><section class="block" aria-labelledby="news-archive"><div class="editorial-section-head"><div><p class="eyebrow">KHÁM PHÁ THÊM</p><h2 id="news-archive">Kho bản tin</h2></div><span class="editorial-count">${issues.length-1} câu chuyện</span></div>${archive}</section>`:'<section class="block"><p>Chưa có bản tin được xuất bản.</p></section>'}<script defer src="../assets/news-video.js"></script></main>`;
 writeFileSync(newsPath,render(newsTemplate,newsMain));
 console.log(`Built ${ordered.length} blog posts and ${newsIssues.length} videos`);
