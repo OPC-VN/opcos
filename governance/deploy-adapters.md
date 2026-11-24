@@ -1,8 +1,9 @@
 # Deploy adapters — one rule source, N tools
 
-The core rules file (`core.template.md`, adapted to your setup) is the **single
-source of truth**. But every agent tool loads its base rules through a different
-native channel. The adapter pattern keeps them in sync without hand-editing.
+The core rules file (`governance/core.md`, created from `core.template.md` and
+adapted to your setup) is the **single source of truth**. Each agent tool loads
+its base rules through its own native channel. The adapter pattern keeps them in
+sync without hand-editing.
 
 ## The problem: derived files drift
 
@@ -41,19 +42,21 @@ $govTargets = @(
     @{ tool = "gemini"; src = "gemini-GEMINI.md"; dest = (Join-Path $HOME ".gemini\GEMINI.md") }
     # Extend: @{ tool = "cursor"; src = "codex-AGENTS.md"; dest = (Join-Path $HOME ".cursor\rules\core.md") }
 )
-foreach ($t in $govTargets) { Deploy-Gov (Join-Path $dist $t.src) $t.dest }
 ```
 
-`Deploy-Gov` (see `bootstrap/install.template.ps1`) is deliberately conservative:
+The installer prepares the deployment list before it changes any tool:
 
 - **Skips** targets whose tool isn't installed (destination directory missing).
+- **Uses** the matching `dist/` rendering when it exists and `governance/core.md`
+  otherwise. It stops with the target name when both sources are missing.
+- **Deploys** only after it has found sources for every configured target.
 - **Skips** targets already in sync (hash comparison) — idempotent, safe to re-run.
-- **Backs up** the existing file to `.bak` once before overwriting.
+- **Backs up** the existing file to `.bak` before overwriting it.
 
 ## The golden rule when changing base rules
 
 1. Edit the **source** (`governance/core.md` in your repo).
-2. Update the corresponding `dist/*` derived files (they may carry small per-tool
+2. Update any `dist/*` renderings the repo provides (they may carry small per-tool
    framing, but the substance must match the source).
 3. Run your update script to redeploy everywhere.
 

@@ -15,6 +15,14 @@
 
 ```powershell
 git clone https://github.com/your-org/your-opcos-fork.git $HOME\.opcos
+Set-Location $HOME\.opcos
+if (-not (Test-Path governance\core.md)) {
+    Copy-Item governance\core.template.md governance\core.md
+}
+# Edit governance/core.md and adapt bootstrap/install.template.ps1 for your setup.
+if (-not (Test-Path bootstrap\install.ps1)) {
+    Copy-Item bootstrap\install.template.ps1 bootstrap\install.ps1
+}
 & $HOME\.opcos\bootstrap\install.ps1
 ```
 
@@ -22,6 +30,10 @@ The install script does the rest: registers the marketplace, installs your plugi
 (all marketplace-capable tools), junctions skills into marketplace-less tools,
 deploys governance (`~/.codex/AGENTS.md`, `~/.gemini/GEMINI.md`, …), clones any
 vendored toolkits, and checks for the optional knowledge layer.
+
+For Codex and Gemini, the installer uses a matching file in `dist/` when present,
+or `governance/core.md` otherwise. If an installed tool has no rule source, the
+installer stops before applying changes.
 
 Then install core store-plugins per your registry (entries with
 `storage: store, priority: core`).
