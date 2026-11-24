@@ -65,19 +65,29 @@ the registry is the single place where you can see the whole machine.
 
 ```powershell
 # 1. Clone this framework and make it yours
-git clone https://github.com/ducnguyen221/opcos my-opcos
+git clone https://github.com/OPC-VN/opcos my-opcos
 cd my-opcos
 
-# 2. Adapt the governance template — this becomes YOUR core rules file
-#    (edit governance/core.template.md; keep the AGENTS.md structure)
+# 2. Create and edit your core rules file
+if (-not (Test-Path governance\core.md)) {
+    Copy-Item governance\core.template.md governance\core.md
+}
 
 # 3. Adapt the installer — fill in your plugin names and gov targets
-#    (edit bootstrap/install.template.ps1, then run it once per machine)
+#    Review bootstrap/install.template.ps1 before running it once per machine.
+powershell -File bootstrap\install.template.ps1
 
 # 4. Describe what you have in registry.json (start from registry/registry.example.json),
 #    then generate the human-readable views:
 powershell -File bootstrap\build-registry.ps1
 ```
+
+For Codex and Gemini, the installer prefers a tool-specific file in `dist/` when
+one is present and otherwise copies `governance/core.md`. Prepare the rules before
+running the installer. It stops before making changes if an installed target has
+no rule source.
+If a marketplace or plugin command fails, the installer reports the failure and
+stops. Review the CLI output before retrying.
 
 From then on: every install goes through the **adopt-repo** procedure, every rule
 change goes through the **deploy adapters**, and every month or two you run

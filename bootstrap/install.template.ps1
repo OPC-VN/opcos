@@ -23,15 +23,53 @@ $RepoRoot = Split-Path -Parent $PSScriptRoot
 $U        = $env:USERPROFILE
 Write-Host "OpcOS repo: $RepoRoot" -ForegroundColor Cyan
 
+# Check every installed tool's rule source before making any changes.
+# A custom rendering wins. The adapted core also works as a plain rule file.
+$dist = Join-Path $RepoRoot "dist"
+$coreRules = Join-Path $RepoRoot "governance\core.md"
+# Adapter table: add a row with the tool name, rendering name, and destination.
+$govTargets = @(
+    @{ tool = "codex";  src = "codex-AGENTS.md";  dest = (Join-Path $U ".codex\AGENTS.md") },
+    @{ tool = "gemini"; src = "gemini-GEMINI.md"; dest = (Join-Path $U ".gemini\GEMINI.md") }
+    # Extend: @{ tool = "cursor"; src = "codex-AGENTS.md"; dest = (Join-Path $U ".cursor\rules\opcos.md") }
+)
+$govDeployments = foreach ($target in $govTargets) {
+    $destDir = Split-Path -Parent $target.dest
+    if (-not (Test-Path -LiteralPath $destDir -PathType Container)) {
+        Write-Host "[gov] $($target.tool): configuration directory not found -- skipping." -ForegroundColor DarkGray
+        continue
+    }
+    if (Test-Path -LiteralPath $target.dest -PathType Container) {
+        throw "[gov] Expected a rule file for $($target.tool), but the destination is a directory: $($target.dest)"
+    }
+
+    $renderedRules = Join-Path $dist $target.src
+    if (Test-Path -LiteralPath $renderedRules -PathType Leaf) {
+        $source = $renderedRules
+    } elseif (Test-Path -LiteralPath $coreRules -PathType Leaf) {
+        $source = $coreRules
+    } else {
+        throw "[gov] Missing rules for $($target.tool). Adapt governance/core.template.md as governance/core.md or supply dist/$($target.src), then run the installer again."
+    }
+    @{ source = $source; dest = $target.dest }
+}
+
+function Invoke-PluginCommand($tool) {
+    & $tool @args
+    if (-not $?) {
+        throw "[$tool] Plugin command failed with exit code $LASTEXITCODE. See the preceding output."
+    }
+}
+
 # -- 1. Claude Code: local marketplace + plugin install (native) --------------
 if (Get-Command claude -ErrorAction SilentlyContinue) {
     Write-Host "[claude] add marketplace + install plugins..." -ForegroundColor Green
     # Local clone path. Swap in 'your-org/your-opcos-fork' for a git-hosted
     # marketplace (lets `claude plugin marketplace update` pull from the remote).
-    claude plugin marketplace add "$RepoRoot"
-    claude plugin install your-company-skills@opcos
+    Invoke-PluginCommand claude plugin marketplace add "$RepoRoot"
+    Invoke-PluginCommand claude plugin install your-company-skills@opcos
     # Add more plugin installs here, one line each:
-    # claude plugin install review-pack@opcos
+    # Invoke-PluginCommand claude plugin install review-pack@opcos
 } else {
     Write-Warning "claude CLI not on PATH -- skipping Claude step."
 }
@@ -39,9 +77,9 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
 # -- 2. Codex CLI: marketplace + plugins (native, separate manifest) ----------
 if (Get-Command codex -ErrorAction SilentlyContinue) {
     Write-Host "[codex] add marketplace + install plugins..." -ForegroundColor Green
-    codex plugin marketplace add "$RepoRoot"
-    codex plugin add your-company-skills@opcos
-    # codex plugin add review-pack@opcos
+    Invoke-PluginCommand codex plugin marketplace add "$RepoRoot"
+    Invoke-PluginCommand codex plugin add your-company-skills@opcos
+    # Invoke-PluginCommand codex plugin add review-pack@opcos
 } else {
     Write-Warning "codex CLI not on PATH -- skipping Codex step."
 }
@@ -81,34 +119,20 @@ foreach ($skillsDir in $junctionTargets) {
 
 # -- 5. Governance parity: deploy core rules to every tool --------------------
 # Claude Code receives the rules automatically via a SessionStart hook (registered
-# by your plugin). Tools without hooks load rules from a native global file --
-# deploy the canonical renderings from dist/ so EVERY machine stays in sync.
-# The source of truth remains governance/core.md; see governance/deploy-adapters.md.
-$dist = Join-Path $RepoRoot "dist"
+# by your plugin). Tools without hooks load the rules from a native global file.
 function Deploy-Gov($src, $dest) {
-    if (-not (Test-Path $src)) { return }
-    $destDir = Split-Path -Parent $dest
-    if (-not (Test-Path $destDir)) {
-        Write-Host "[gov] $(Split-Path -Leaf $dest): tool not installed -- skipping." -ForegroundColor DarkGray
-        return
-    }
-    if ((Test-Path $dest) -and ((Get-FileHash $src).Hash -eq (Get-FileHash $dest).Hash)) {
+    $destExists = Test-Path -LiteralPath $dest -PathType Leaf
+    if ($destExists -and ((Get-FileHash -LiteralPath $src).Hash -eq (Get-FileHash -LiteralPath $dest).Hash)) {
         Write-Host "[gov] $(Split-Path -Leaf $dest) already in sync." -ForegroundColor DarkGray
         return
     }
-    if (Test-Path $dest) { Copy-Item $dest "$dest.bak" -Force }   # one-time backup of the old file
-    Copy-Item $src $dest -Force
+    if ($destExists) { Copy-Item -LiteralPath $dest -Destination "$dest.bak" -Force }
+    Copy-Item -LiteralPath $src -Destination $dest -Force
     Write-Host "[gov] deploy -> $dest" -ForegroundColor Green
 }
-# Adapter table (pattern inspired by rulesync): each target = one data row
-# {tool, src, dest}. Adding a tool (Cursor / Copilot / Zed...) = adding a row --
-# never touch the deploy logic.
-$govTargets = @(
-    @{ tool = "codex";  src = "codex-AGENTS.md";  dest = (Join-Path $U ".codex\AGENTS.md") },
-    @{ tool = "gemini"; src = "gemini-GEMINI.md"; dest = (Join-Path $U ".gemini\GEMINI.md") }
-    # Extend: @{ tool = "cursor"; src = "codex-AGENTS.md"; dest = (Join-Path $U ".cursor\rules\opcos.md") }
-)
-foreach ($t in $govTargets) { Deploy-Gov (Join-Path $dist $t.src) $t.dest }
+foreach ($deployment in $govDeployments) {
+    Deploy-Gov $deployment.source $deployment.dest
+}
 
 # -- 6. Knowledge layer (OPTIONAL): a personal knowledge base -----------------
 # OpcOS = OS layer (how agents work); the knowledge base = knowledge layer (what
