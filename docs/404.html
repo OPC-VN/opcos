@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>Không tìm thấy trang · OpcOS</title>
+</head>
+<body>
+  <main class="wrap">
+    <div class="intro">
+      <h1>Không tìm thấy trang này.</h1>
+      <p><a id="home" class="button primary" href="https://opc-vn.github.io/opcos/sites/index.html">Về trang chủ OpcOS</a></p>
+    </div>
+  </main>
+  <script>
+    const base = location.protocol === 'file:' ? '' : location.hostname === 'opc-vn.github.io' ? '/opcos/' : '/';
+    document.getElementById('home').href = base + 'sites/index.html';
+    const style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = base + 'sites/assets/site.css';
+    document.head.append(style);
+  </script>
+</body>
+</html>
