@@ -54,15 +54,22 @@ $govDeployments = foreach ($target in $govTargets) {
     @{ source = $source; dest = $target.dest }
 }
 
+function Invoke-PluginCommand($tool) {
+    & $tool @args
+    if (-not $?) {
+        throw "[$tool] Plugin command failed with exit code $LASTEXITCODE. See the preceding output."
+    }
+}
+
 # -- 1. Claude Code: local marketplace + plugin install (native) --------------
 if (Get-Command claude -ErrorAction SilentlyContinue) {
     Write-Host "[claude] add marketplace + install plugins..." -ForegroundColor Green
     # Local clone path. Swap in 'your-org/your-opcos-fork' for a git-hosted
     # marketplace (lets `claude plugin marketplace update` pull from the remote).
-    claude plugin marketplace add "$RepoRoot"
-    claude plugin install your-company-skills@opcos
+    Invoke-PluginCommand claude plugin marketplace add "$RepoRoot"
+    Invoke-PluginCommand claude plugin install your-company-skills@opcos
     # Add more plugin installs here, one line each:
-    # claude plugin install review-pack@opcos
+    # Invoke-PluginCommand claude plugin install review-pack@opcos
 } else {
     Write-Warning "claude CLI not on PATH -- skipping Claude step."
 }
@@ -70,9 +77,9 @@ if (Get-Command claude -ErrorAction SilentlyContinue) {
 # -- 2. Codex CLI: marketplace + plugins (native, separate manifest) ----------
 if (Get-Command codex -ErrorAction SilentlyContinue) {
     Write-Host "[codex] add marketplace + install plugins..." -ForegroundColor Green
-    codex plugin marketplace add "$RepoRoot"
-    codex plugin add your-company-skills@opcos
-    # codex plugin add review-pack@opcos
+    Invoke-PluginCommand codex plugin marketplace add "$RepoRoot"
+    Invoke-PluginCommand codex plugin add your-company-skills@opcos
+    # Invoke-PluginCommand codex plugin add review-pack@opcos
 } else {
     Write-Warning "codex CLI not on PATH -- skipping Codex step."
 }

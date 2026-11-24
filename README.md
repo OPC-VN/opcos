@@ -86,6 +86,8 @@ For Codex and Gemini, the installer prefers a tool-specific file in `dist/` when
 one is present and otherwise copies `governance/core.md`. Prepare the rules before
 running the installer. It stops before making changes if an installed target has
 no rule source.
+If a marketplace or plugin command fails, the installer reports the failure and
+stops. Review the CLI output before retrying.
 
 From then on: every install goes through the **adopt-repo** procedure, every rule
 change goes through the **deploy adapters**, and every month or two you run
