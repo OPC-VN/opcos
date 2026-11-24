@@ -1,0 +1,154 @@
+// Chỉ dữ liệu được duyệt để phát hành. Bản chờ duyệt nằm ngoài repo.
+export const blogPosts = [
+  {
+    "title": "Một ngày có ba trợ lý AI: giao phần chuẩn bị, giữ phần quyết định",
+    "slug": "nhan-vien-1-nguoi-doi-ngu-ai",
+    "description": "Theo chân một nhân viên vận hành qua ba đầu việc: lọc thư, đọc phản hồi và dựng đề xuất, với cách kiểm chứng từng đầu ra.",
+    "topic": "opc-mindset",
+    "date": null,
+    "image": "infographic.png",
+    "body": "\n<p>Lúc 8:30, bạn mở một hộp thư có thư khách hàng chờ trả lời, một bảng khảo sát cần tổng hợp và một bản đề xuất chưa có dàn ý. Nghe như ba việc cần ba trợ lý khác nhau. Nhưng câu hỏi hữu ích hơn là: trong từng việc, phần nào mình có thể giao mà vẫn biết ngay liệu kết quả có đáng tin?</p>\n<p>Hãy thử đi qua một ngày minh họa của nhân viên vận hành ở công ty bán lẻ. Mọi dữ liệu, giờ và kết quả dưới đây đều là giả lập; mục đích là xem người và AI bàn giao cho nhau ra sao, không phải chứng minh tiết kiệm bao nhiêu phút.</p>\n<h2>8:30 — Hộp thư: giao việc phân luồng, không giao quyền gửi</h2>\n<p>Trong hộp thư mô phỏng có 12 thư. Ba dòng đáng bàn là: E02 đề nghị kiểm tồn kho ngay trong ngày; E05 hỏi tiến độ nhưng không có hạn; E08 chuyển tiếp một thư cũ ghi “cần xử lý ngay”, bên trên lại có thư mới nói đã xử lý. Nếu dựa vào từ “ngay” hoặc chữ “gấp”, AI rất dễ cho E08 lên đầu và biến E05 thành việc có hạn.</p>\n<p>Hãy đưa một bảng trích yếu được phép sử dụng, rồi yêu cầu bốn cột: mã thư, việc cần làm, hạn được ghi nguyên văn, và câu làm bằng chứng. Những thư không ghi hạn phải hiện “chưa có hạn”; nếu nội dung mâu thuẫn, gắn “cần đọc chuỗi thư”. Chỉ cho phép chuẩn bị câu trả lời nháp, không gửi.</p>\n<p>Kiểm đầu ra bằng ba thư trên. E02 phải nằm trong danh sách hôm nay; E05 không được có giờ tự bịa; E08 cần kiểm email mới nhất. Nếu AI làm sai một trong ba, đừng sửa riêng một ô rồi tin phần còn lại: chạy lại với quy tắc đọc thứ tự và rà toàn bộ 12 dòng. Khi nháp đã đạt, bạn vẫn là người đọc nguyên thư và chọn đúng người nhận.</p>\n<h2>10:00 — Khảo sát: cho AI đề xuất nhãn, để bảng tính làm phép đếm</h2>\n<p>Giả sử có 120 phản hồi. Mẫu S17 viết “giao chậm nhưng đổi hàng nhanh”; S23 chỉ có dấu chấm; S48 ghi “nhanh ghê, hẹn thứ Hai mà thứ Năm mới tới”. Nếu bắt mỗi dòng có đúng một nhãn, S17 làm mất một nửa thông tin. Nếu dựa vào từ khóa tích cực, S48 có thể bị xếp nhầm.</p>\n<p>Chạy thử 12 dòng giả lập hoặc được phép dùng; yêu cầu đề xuất nhãn, trích đúng cụm từ, có thể gắn nhiều nhãn và không ép phân nhóm dòng rỗng. Khi đã sửa định nghĩa nhãn, bảng tính mới đếm trên cột nhãn đã kiểm. Nếu một dòng gắn hai nhãn, tổng số nhãn có thể cao hơn số phản hồi; ghi điều đó vào ghi chú, đừng gọi nhầm là số người.</p>\n<p>Trước khi dùng báo cáo, lấy vài dòng dễ sai ở mỗi nhóm, đối chiếu câu trích và tìm nhãn bị bỏ sót. Nếu cần gửi dữ liệu công việc vào công cụ, phải có phép theo chính sách tổ chức. Bỏ tên và email chưa đủ nếu câu trả lời vẫn có chi tiết nhận dạng.</p>\n<h2>14:00 — Bản đề xuất: buộc đầu ra tách điều biết và điều chưa biết</h2>\n<p>Bạn cần đề xuất một cách cải thiện báo cáo tồn kho. Cho AI ba đầu vào: mục tiêu là giảm những lần xin số lại; nhóm chỉ có hai người chạy thử; chưa có báo giá phần mềm. Yêu cầu đầu ra một trang: vấn đề, hai lựa chọn, căn cứ sẵn có, điều còn thiếu và quyết định cần xin. Đừng yêu cầu “viết thật thuyết phục”: một bản nháp quá trơn tru có thể che chỗ thiếu thông tin.</p>\n<p>Kiểm bằng cách đánh dấu ba loại câu: đã có căn cứ, giả định để thử, cần người xác nhận. Nếu AI viết “chi phí không đáng kể”, chuyển thành “chưa có báo giá; cần hỏi bên cung cấp”. Phần việc của bạn là chọn phương án, cân nhắc chi phí và chịu trách nhiệm với đề xuất.</p>\n<h2>16:30 — Chấm điểm cách làm, không chấm số lượng đầu ra</h2>\n<p>Cuối ngày, ghi bốn mục cho mỗi việc: thời gian chuẩn bị, thời gian kiểm, số điểm phải sửa và trường hợp dễ sai nhất. Chạy thêm vài lượt với cùng tiêu chí trước khi mở rộng. Nếu quy trình kiểm nặng hơn tự làm, thử giảm phạm vi hoặc bỏ bước AI. Không cần cố chứng minh công cụ có ích.</p>\n<p>Nếu bắt đầu ngày mai, mình sẽ chọn một việc có đầu ra nhỏ và dễ kiểm, ví dụ bảng phân luồng 12 thư giả lập. Bạn chọn hộp thư, khảo sát hay đề xuất? Chỉ chia sẻ loại việc và tình huống đã bỏ dữ liệu riêng tư.</p>",
+    "approved": true
+  },
+  {
+    "title": "Ba cấp độ dùng AI, nhìn từ một bản báo cáo tuần",
+    "slug": "3-cap-do-ung-dung-ai-cong-viec",
+    "description": "Một ví dụ cùng dữ liệu và đầu ra cho thấy khi nào chỉ nên hỏi AI, khi nào đưa AI vào quy trình, và khi nào mới nối luồng.",
+    "topic": "ai-concepts",
+    "date": null,
+    "image": "infographic.png",
+    "body": "\n<p>Một câu “viết báo cáo tuần hay hơn” và một quy trình “đọc số, đối chiếu nguồn, chuyển người duyệt” nghe đều giống giao việc cho AI. Nhưng nếu đầu ra sai, chỉ có cách thứ hai cho bạn biết lỗi xuất hiện ở đâu. Thử nhìn ba mức độ dùng AI qua một bài toán quen thuộc: báo cáo vận hành vào thứ Sáu.</p>\n<p>Ví dụ xuyên suốt là dữ liệu giả lập. Bảng có hai chỉ tiêu: đơn đúng hạn, kế hoạch 96%, thực tế 92%, ở dòng R04; số yêu cầu tồn, kế hoạch 10, thực tế 14 ở dòng R07. Một dòng về nguyên nhân chậm vẫn trống. Mục tiêu là nêu hai điểm cần bàn, không tự giải thích nguyên nhân.</p>\n<h2>Bậc 1 — Hỏi một câu, nhận một gợi ý</h2>\n<p>Nếu mục tiêu chỉ là hiểu cách trình bày, có thể hỏi: “Giải thích cách phân biệt chênh lệch điểm phần trăm và phần trăm thay đổi. Cho ví dụ từ 96% xuống 92%.” Việc này không đòi hỏi kết nối dữ liệu hay mở một dự án.</p>\n<p>Điều cần kiểm: 92% so với 96% là giảm 4 điểm phần trăm. Nếu tính mức thay đổi tương đối so với 96%, kết quả là khoảng −4,17%. Hai cách diễn đạt trả lời hai câu khác nhau, không được dùng lẫn. Hỏi một câu có ích nếu nó giúp bạn tự xem lại phép tính và chọn cách nói rõ hơn. Dừng ở đây cũng hoàn toàn hợp lý nếu việc chỉ phát sinh đôi lần.</p>\n<h2>Bậc 2 — Biến một đoạn việc thành mẫu dùng lại</h2>\n<p>Nếu thứ Sáu nào cũng có báo cáo, chuẩn hóa ba thứ trước: dữ liệu vào, mẫu đầu ra và điều kiện chấp nhận. Bảng đầu vào gồm mã dòng, định nghĩa chỉ tiêu, kế hoạch, thực tế, đơn vị và ghi chú đã xác nhận. Đầu ra mình dùng là: dòng nguồn | chênh lệch | một câu trung tính | câu hỏi cho người phụ trách.</p>\n<p>Có thể thử câu lệnh:</p>\n<blockquote>\n<p>Chỉ dùng bảng đính kèm. Với tỷ lệ, tính theo điểm phần trăm; với số lượng, ghi chênh lệch theo đơn vị. Sau mỗi nhận định hãy ghi mã dòng. Nếu cột ghi chú trống, viết “chưa xác nhận nguyên nhân”, không suy diễn. Chọn hai câu hỏi cần người phụ trách trả lời.</p>\n</blockquote>\n<p>Một đầu ra đạt sẽ nêu R04 giảm 4 điểm phần trăm; R07 nhiều hơn kế hoạch 4 yêu cầu; và ghi phần nguyên nhân chưa xác nhận. Nếu AI viết “do thiếu nhân sự” hoặc dùng −4% thay −4 điểm phần trăm, đó là lỗi có thể kiểm ra ngay. Với bảng thật, nên để công thức bảng tính tính toán; AI diễn đạt, nhóm nhận định hoặc gợi ý câu hỏi. Như vậy không khó lần ngược khi một chỉ tiêu đổi định nghĩa.</p>\n<h2>Bậc 3 — Điều phối một luồng, không bỏ bước người duyệt</h2>\n<p>Khi mẫu đã ổn định qua vài lần dùng, có thể nối chuỗi: nhận đúng mẫu → kiểm đủ cột và đơn vị → tính chênh lệch → dựng bản nháp → chuyển người phụ trách duyệt. Nếu thiếu đường dẫn về dòng nguồn, sai kỳ hoặc có cột mới chưa rõ nghĩa, luồng dừng. Không để công cụ tự gửi ra ngoài chỉ vì bước tóm tắt chạy xong.</p>\n<p>Một bài kiểm thử nhỏ trước khi nối:\n- Dòng R04 giữ đúng đơn vị “điểm phần trăm”.\n- Xóa kế hoạch ở R07 để chắc chắn luồng báo thiếu thay vì coi đó là 0.\n- Thêm ghi chú chưa xác nhận để chắc chắn bản nháp không viết nó như nguyên nhân đã kết luận.\n- Thay tiêu đề một cột để luồng dừng và chỉ vị trí cần sửa, không chạy tiếp.</p>\n<p>Anthropic gọi luồng có các đường xử lý định trước là workflow, khác với agent có thể tự chọn một số bước và cách dùng công cụ. Ba bậc trong bài là cách tự soi mức độ đưa AI vào việc, không phải cách Anthropic phân loại. Một workflow cố định đủ dùng thường đáng thử trước khi trao quyền điều phối linh hoạt hơn.</p>\n<p>Nếu muốn lên một bậc, thử bắt đầu bằng một báo cáo, chạy song song vài tuần và đo thời gian kiểm, số lỗi quan trọng và tỷ lệ phải làm lại. Kết quả nên giúp bạn quyết định giữ, sửa hay bỏ bước AI. Không cần tự động hóa để chứng minh mình ở bậc ba.</p>\n<h2>Nguồn đọc thêm</h2>\n<ul>\n<li><a href=\"https://www.anthropic.com/research/building-effective-agents\">Anthropic, Building effective AI agents</a>: phân biệt workflow/agent và nguyên tắc bắt đầu bằng giải pháp đơn giản.</li>\n</ul>",
+    "approved": true
+  },
+  {
+    "title": "Hỏi không sợ ngố: biến một pha AI làm sai thành bài học chung",
+    "slug": "van-hoa-hoi-khong-so-ngo",
+    "description": "Một ca biên bản họp giả lập, từ câu hỏi ngập ngừng đến bản sửa có chỗ đối chiếu, và cách góp ý để người mới dám chia sẻ.",
+    "topic": "opc-community",
+    "date": null,
+    "image": "infographic.png",
+    "body": "\n<p>Bạn nhờ AI viết biên bản, đọc thấy câu “chị Mai gửi bảng giá vào thứ Năm”, rồi định chép thẳng sang danh sách việc. Mở lại ghi chú mới thấy cả nhóm chỉ nói “nếu khách đồng ý thì hỏi Mai xem sao”. Nếu bấm gửi ngay, một đề xuất có điều kiện đã thành nhiệm vụ thật.</p>\n<p>Đây là tình huống giả lập, nhưng đủ nhỏ để thực hành một việc quan trọng của cộng đồng OPC Vietnam: giúp người mới nhìn ra lỗi mà không làm họ ngại hỏi lần sau.</p>\n<h2>1. Dám hỏi, nhưng kể đủ để người khác thử lại</h2>\n<p>Thay vì “AI nào tóm tắt họp chuẩn nhất?”, người hỏi có thể viết: “Mình muốn tách việc đã chốt và việc còn đề nghị. AI lại gán một hạn cho việc chưa được đồng ý. Dưới đây là ba câu giả lập giống cấu trúc cuộc họp; mình nên đổi prompt hay đổi cách kiểm?”</p>\n<p>Ba câu giả lập:\n- G01: “Cả nhóm thống nhất gửi bản nháp lên thư mục chung trước 17:00 thứ Tư. Linh phụ trách.”\n- G02: “Nếu khách đồng ý mới hỏi Mai về bảng giá.”\n- G03: “Có thể lên lịch tuần sau; hôm nay chưa chốt ngày.”</p>\n<p>Kỳ vọng: G01 vào danh sách đã chốt; G02 vào điều kiện chưa thỏa; G03 vào đề xuất chưa có hạn. Nếu bản nháp ra khác, đọc lại câu nguồn trước khi đổi công cụ. Khi dùng ví dụ thật, hãy thay bằng đoạn giả lập tương đương, đừng chép ghi âm hay tên khách lên nhóm.</p>\n<h2>2. Dám kể cách mình sửa, không chỉ khoe kết quả đẹp</h2>\n<p>Một cách giao lại việc: “Tạo ba nhóm: đã chốt, có điều kiện, chưa chốt. Ghi mã dòng hoặc câu căn cứ cho mỗi việc. Không gán chủ sở hữu hoặc hạn nếu nguồn không nêu. Sau bảng, liệt kê điều cần người chủ trì xác nhận.” Yêu cầu không bịa giúp đầu ra có chỗ kiểm; nó không bảo đảm AI sẽ luôn làm đúng.</p>\n<p>Chạy lại đúng ba câu trước. Sau đó thêm một câu kiểm tra: “Anh Bình nói <em>có thể</em> phụ trách nếu xếp được thời gian”. Nếu AI vẫn xếp thành việc đã chốt, ghi rõ lỗi đó và giữ bước người đọc rà lại trạng thái từng mục. Khi chia sẻ kết quả, viết ngắn: “vấn đề gì, thử thay đổi gì, đã đối chiếu ra sao, còn sai ở đâu”. Người sau mới có cơ hội học lại cách kiểm thực sự.</p>\n<h2>3. Góp ý vào bước làm, đừng chấm người hỏi</h2>\n<p>Một lời đáp hữu ích có thể là: “Ở dòng G02 bạn có chữ ‘nếu’; thử giữ riêng một cột điều kiện, vì xóa nó là đổi nghĩa. Cứ dùng cùng ba dòng khi kiểm lần hai, rồi đối chiếu thủ công.” Nó rõ hơn nhiều so với “prompt dở quá” hoặc “dùng model khác đi”.</p>\n<p>Amy Edmondson dùng khái niệm an toàn tâm lý để nói đến niềm tin chung rằng nhóm là nơi có thể chấp nhận rủi ro khi lên tiếng. Trong nghiên cứu năm 1999 trên 51 nhóm làm việc, yếu tố này có liên hệ với hành vi học hỏi. Đó không phải bằng chứng rằng một lời động viên sẽ làm AI chính xác hơn. Với cộng đồng, ý áp dụng là tạo điều kiện để người mới dám nêu lỗi và để nhiều người cùng kiểm trong sáng.</p>\n<h2>Một mẫu để mở đầu ngay dưới bài</h2>\n<p>“Mình muốn [đầu ra]. Mình đã thử [một bước]. Kết quả lệch ở [một điểm]. Đây là [ví dụ giả lập/đã được phép công khai]. Ai từng gặp kiểu này có thể gợi ý mình nên kiểm bước nào trước không?”</p>\n<p>Bạn có thể hỏi rất cơ bản. Khi trả lời người khác, hãy thử chỉ ra một bước kiểm cụ thể, chỗ chưa chắc và một cách thử nhỏ hơn. Đừng đòi họ biết tên công cụ trước khi được giúp.</p>\n<h2>Nguồn đọc thêm</h2>\n<ul>\n<li><a href=\"https://dash.harvard.edu/entities/publication/13a7b031-0fdd-45ec-a7e0-2b80e2bc679f\">Amy Edmondson, Psychological Safety and Learning Behavior in Work Teams, 1999</a>.</li>\n</ul>",
+    "approved": true
+  },
+  {
+    "title": "Mở OPC Starter Kit bằng một ca xử lý phản hồi khách hàng",
+    "slug": "qua-tang-opc-starter-kit-mien-phi",
+    "description": "Thử một prompt, một workflow và một SOP để tiếp nhận phản hồi khách hàng mà không đoán chính sách hay nhầm hồ sơ.",
+    "topic": "opc-community",
+    "date": null,
+    "image": "infographic.png",
+    "body": "\n<p>Thứ Hai, nhóm hỗ trợ vừa mở hộp thư đã có ba việc dễ lẫn: một đơn giao muộn, một khách hỏi điều kiện đổi và một người gửi thiếu mã đơn. Một bản nháp trả lời có vẻ hữu ích, nhưng sẽ thành rắc rối nếu nó tự hứa giao ngày mai hay tự kết luận khách đủ điều kiện đổi. Đây là một cách thực tế để mở OPC Starter Kit: chọn đúng một prompt, một luồng và một mẫu SOP, tất cả phục vụ một ca việc.</p>\n<p>Bài dùng dữ liệu giả lập để bạn có thể chạy thử mà không đính kèm hồ sơ khách. Bộ tài liệu có 50 prompt, 10 workflow và một mẫu SOP một trang. Không cần dùng hết; hãy thử một vòng, rồi đánh giá xem đầu ra có rõ hơn và kiểm dễ hơn không.</p>\n<h2>Bước 1 — Chọn một mẫu soạn phản hồi và bổ sung giới hạn</h2>\n<p>Ca minh họa có ba thư:\n- T01: Đã xác minh đơn X01 giao muộn; ca trực chưa có thời gian giao mới.\n- T02: Khách hỏi đổi sản phẩm; quy định minh họa yêu cầu đủ thông tin đơn trước khi xác nhận đủ điều kiện đổi.\n- T03: Khách báo thiếu sản phẩm, chưa gửi mã đơn.</p>\n<p>Nhờ AI ghi bốn cột: mã thư, dữ kiện đã biết, dữ kiện còn thiếu, hướng trả lời. Sau đó cho viết bản nháp ngắn, chỉ theo chính sách mẫu đã đưa. Với T01, nên thừa nhận chậm và nói sẽ kiểm tra, không hứa ngày. Với T02, giải thích dữ kiện cần để kiểm điều kiện, không xác nhận trước. Với T03, chỉ xin thông tin cần thiết, không hỏi mật khẩu hay mã OTP.</p>\n<p>Thử thay một dòng: thêm vào T02 lời khách nói “lần trước bên bạn đã đồng ý đổi”. Nếu đầu ra viết như đã có xác nhận của công ty, ca này chưa đạt. Giữ riêng cột lời khách nêu và cột dữ kiện đã được xác minh. Cách làm đó giúp người nhận ca phân biệt lời kể với trạng thái hồ sơ.</p>\n<h2>Bước 2 — Chạy workflow bằng tay, trước khi nối công cụ</h2>\n<p>Luồng thử: nhận thư → chọn trường thực sự cần → kiểm hồ sơ và chính sách → dựng nháp → người phụ trách duyệt và gửi. Chạy cả ba thư bằng tay một lần. Ghi lại bước mất công nhất, không mặc định rằng bước viết phải được tự động hóa đầu tiên. Nếu lỗi chủ yếu do thiếu mã đơn, một biểu mẫu hỏi đúng thông tin có khi hiệu quả hơn đổi công cụ soạn.</p>\n<p>Khi đầu vào rõ và quy định đã kiểm, có thể thử tự động hóa bước phân loại hoặc tạo bản nháp nếu công cụ được tổ chức cho phép. Đặt điểm dừng khi không tìm thấy hồ sơ, có khiếu nại cần người xử lý hoặc chính sách đang thay đổi. Không để luồng tự gửi thư hoặc quyết định điều kiện đổi.</p>\n<h2>Bước 3 — Ghi phần ổn định vào SOP một trang</h2>\n<p>Đầu vào: bản trích yếu, trạng thái hồ sơ và chính sách đã kiểm phiên bản. Các bước: tách dữ kiện, nhận diện điều chưa biết, nháp câu trả lời. Tiêu chí đạt: mọi hứa hẹn đều có căn cứ; câu hỏi bổ sung chỉ xin dữ kiện cần thiết; không chuyển ghi chú nội bộ ra ngoài. Người duyệt: người phụ trách ca.</p>\n<p>Thêm một dòng “nếu không đạt”: giữ nháp, nêu chỗ thiếu và chuyển cho người có thẩm quyền; không cố điền cho đủ. Cho một đồng nghiệp đọc mẫu rồi thử T01 mà không hỏi bạn. Nếu đồng nghiệp vẫn phải hỏi “chậm là bao lâu, ai kiểm?”, bổ sung tên nguồn trạng thái đơn và người xác nhận vào SOP.</p>\n<p>Khi đã chạy một vòng, đổi dữ liệu và giữ nguyên tiêu chí. Nếu bản nháp vẫn dễ kiểm với tình huống mới, thử mở rộng sang một loại phản hồi khác. Đừng dùng thêm mười prompt để bù cho một quy trình chưa rõ.</p>\n<h2>Mở tài liệu</h2>\n<p>Trong Group OPC Vietnam, vào Hướng dẫn (Guides), mở Guide 1. Bộ tài liệu miễn phí cho thành viên và không cần để lại email. Hãy bắt đầu từ loại việc đang cần xử lý, dùng dữ liệu giả lập rồi chọn một điểm kiểm của người.</p>",
+    "approved": true
+  },
+  {
+    "title": "Đi cùng đồng đội thì xa: thử một mẫu bàn giao chung trong hai tuần",
+    "slug": "moi-dong-doi-gia-nhap-opc-vietnam",
+    "description": "Ba đồng nghiệp thử giảm việc hỏi lại khi tổng hợp báo cáo tuần, với biểu mẫu bốn cột, cổng kiểm và một vòng phản hồi 15 phút.",
+    "topic": "opc-community",
+    "date": null,
+    "image": "infographic.png",
+    "body": "\n<p>Bạn dùng AI để gom báo cáo tuần. Bản của người thứ nhất có đủ việc và kết quả; người thứ hai gửi một đoạn chat; người thứ ba chỉ ghi “đang làm”. AI có thể làm cho ba bản trông đồng đều, nhưng không thể tự biết “đang làm” là chờ số liệu, vướng phê duyệt hay chưa bắt đầu. Cuối cùng, bạn vẫn phải hỏi lại từng người.</p>\n<p>Thay vì rủ cả phòng học thêm một công cụ, thử rủ hai đồng nghiệp thay đúng một cách bàn giao trong hai tuần. Ca vận hành dưới đây là minh họa, không phải số liệu đo ở một nhóm thật.</p>\n<h2>Tuần 1 — Chọn một điểm vướng và ghi lại nó</h2>\n<p>Chọn báo cáo tuần nếu ai cũng thấy mất công hỏi lại. Chưa biết điểm nghẽn gì thì lấy vài mục tuần trước và đếm các chỗ cần làm rõ: thiếu kỳ, thiếu số, thiếu người phản hồi hay không rõ bước tiếp theo. Chỉ ghi loại lỗi; không mang nội dung công việc ra nhóm công khai.</p>\n<p>Thử với một mục minh họa: “Hoàn thành đối soát đơn tháng 10, còn 4 dòng chưa khớp, nhờ bên kho kiểm”. Câu này có kết quả và số vướng nhưng chưa nói ai ở kho nhận việc, khi nào phản hồi. AI không được tự đổi thành “nhân viên kho phải xử lý thứ Hai”.</p>\n<h2>Thống nhất bốn cột và một quy tắc</h2>\n<p>Dùng bốn cột dễ nhớ: việc đã làm | kết quả | đang vướng | bước tiếp theo. Điền dòng ví dụ như sau: “Đối soát đơn tháng 10 | Đã rà, còn 4 dòng chưa khớp | Chưa có nguyên nhân | Hỏi bên kho; chưa rõ người phản hồi hoặc hạn”. Nếu một cụm bị hiểu theo hai nghĩa, ghi “chưa xác nhận” rồi giữ nguyên cho người phụ trách chốt.</p>\n<p>Lúc này AI có thể hỗ trợ định dạng, nhóm điểm vướng hoặc soạn câu hỏi gửi riêng, tùy công cụ đã được phép dùng. Dữ kiện phải về được bản gốc. Nếu công cụ không thấy số liệu, không cho phép nó suy từ tuần trước. Đừng lấy mức độ gọn của câu văn làm bằng chứng rằng việc bàn giao đã đủ.</p>\n<h2>Tuần 2 — Đổi một mẹo trong 15 phút, đo đúng một chuyện</h2>\n<p>Ba người xem lại vài mục không nhạy cảm. Người nhận ghi mỗi lần phải nhắn hỏi lại; người gửi chỉ ra chỗ mẫu khiến mình điền sai hoặc mất thời gian. So với lần trước theo số mục tương đương, không cần thống kê phức tạp: nếu báo cáo tuần sau có ít mục phải hỏi lại và không thêm lỗi quan trọng, giữ phần mẫu có tác dụng. Nếu số lượt nhắn không đổi, xem lại định nghĩa cột trước khi thêm tính năng AI.</p>\n<p>Chẳng hạn, cả hai tuần đều phải hỏi “ai nhận việc này?”. Tuần tiếp theo thêm tên người phụ trách vào cột bước tiếp theo, giữ nguyên các cột khác, rồi kiểm lại. Nếu hay thiếu kỳ, khóa cột kỳ theo báo cáo thay vì mỗi người tự gõ. Thay một yếu tố mỗi lượt giúp mình biết vì sao có cải thiện, thay vì đổi luôn mẫu, công cụ và người duyệt.</p>\n<h2>Mời đồng đội bằng một việc thật, không bằng khẩu hiệu</h2>\n<p>Một lời rủ đủ rõ: “Tuần này thử với mình một mẫu bốn cột để tổng hợp báo cáo thứ Sáu nhé. Mình giữ cách làm cũ làm mốc so, cuối tuần xem lại 15 phút rồi quyết định có dùng tiếp không.” Cho họ quyền nói mẫu mới không hợp và đề xuất sửa một cột. Có thể tập bằng tình huống giả lập trước nếu chưa được phép dùng báo cáo thật với AI.</p>\n<p>Khi nhịp bàn giao ổn hơn, mới xem có nên hỗ trợ thêm bằng tự động hóa. Cái cần nhân rộng không phải thói quen mở chat, mà là thói quen giữ đầu vào rõ, đầu ra kiểm được và người chịu trách nhiệm đủ quyền quyết định.</p>\n<p>Nếu rủ một đồng đội thử tuần tới, bạn chọn báo cáo, ghi chú họp hay bàn giao yêu cầu khách hàng? Kể tên loại việc là đủ; không cần nêu tên người hay dữ liệu công ty.</p>",
+    "approved": true
+  }
+];
+export const newsIssues = [
+  {
+    "id": "3am_sZUfvNA",
+    "title": "OPC News | 21/11/2026 | Một người mở lớp, AI trực đến đâu?",
+    "date": "2026-11-22",
+    "description": "Khi học viên nhắn hỏi cách nộp bài ngay lúc bạn đang dạy lớp khác, ai sẽ trả lời? Một bản cập nhật của Circle gợi ý cách chia việc để người mở lớp vẫn giữ được thời gian chấm bài và phản hồi. 📋 Nội dung chính trong video: • Circle chia vai ",
+    "kind": "Video",
+    "approved": true,
+    "publishedAt": "2026-11-21T09:13:23-08:00"
+  },
+  {
+    "id": "JcWBMikQUnw",
+    "title": "OPC News | 20/11/2026 | Bảy AI agent dựng quảng cáo, ai giữ ví?",
+    "date": "2026-11-22",
+    "description": "Bạn tự bán hàng, viết quảng cáo rồi cuối ngày mở từng bảng báo cáo để xem tiền đi đâu. Nếu giao phần chuẩn bị cho AI, bạn vẫn cần trả lời câu hỏi quan trọng nhất: đơn hàng nào thực sự về? 📋 Nội dung chính trong video: • Bảy vai sau một bảng",
+    "kind": "Video",
+    "approved": true,
+    "publishedAt": "2026-11-21T09:04:39-08:00"
+  },
+  {
+    "id": "R6gABqeBzDw",
+    "title": "OPC News | 18/11/2026 | AI nuốt 80% traffic: công ty một người xoay trục thế nào?",
+    "date": "2026-11-18",
+    "description": "Bạn viết bài hướng dẫn tốt nhất về một chủ đề, đứng top 1 Google, vậy mà người đọc vẫn không bấm vào. Sáng nay, hai cuộc thảo luận cùng lên trang nhất Hacker News: một nghiên cứu cho thấy khung trả lời bằng AI của Google cắt gần 40% lượt bấ",
+    "kind": "Video",
+    "approved": true,
+    "publishedAt": "2026-11-18T01:19:16-08:00"
+  },
+  {
+    "id": "6b8MqyDW9no",
+    "title": "OPC News | 17/11/2026 | Vibe-coding lộ hộ chiếu: cái bẫy của công ty một người",
+    "date": "2026-11-17",
+    "description": "Gõ vài câu tiếng Việt, vài phút sau đã có một ứng dụng hoàn chỉnh: có đăng nhập, có cơ sở dữ liệu, có cả trang thanh toán. Đó là lời hứa khiến đông đảo solopreneur mê mẩn các nền tảng dựng app bằng AI. Nhưng cuối tuần qua, một báo cáo bảo m",
+    "kind": "Video",
+    "approved": true,
+    "publishedAt": "2026-11-16T20:19:45-08:00"
+  },
+  {
+    "id": "gX2hXEYFwak",
+    "title": "OPC News | 16/11/2026 | Kỷ nguyên One-Person Company: 1 người vận hành doanh nghiệp triệu USD n",
+    "date": "2026-11-16",
+    "description": "Bạn đã bao giờ tưởng tượng một cá nhân duy nhất có thể điều hành doanh nghiệp triệu đô mà không cần bất kỳ nhân viên nào chưa? Điều tưởng chừng viễn tưởng này đang trở thành hiện thực ngay trước mắt chúng ta. Làn sóng One-Person Company và ",
+    "kind": "Video",
+    "approved": true,
+    "publishedAt": "2026-11-16T04:19:44-08:00"
+  },
+  {
+    "id": "1V1lzXlZCrQ",
+    "title": "⚡ 60 giây | Một người mở lớp, AI trực đến đâu? #Shorts",
+    "date": "2026-11-22",
+    "description": "🔥 Hot News 21/11/2026: Một người mở lớp, AI trực đến đâu? Bạn đang dạy mà hộp thư lớp cứ reo. Giao câu nào cho AI? 📺 Bản đầy đủ + các tin nóng khác: https://ducnguyen.vn/news/opc/hot-today/ — 👤 Hot News by Nguyễn Quang Đức — tin OPC News NÓ",
+    "kind": "Short",
+    "approved": true,
+    "publishedAt": "2026-11-21T09:16:21-08:00"
+  },
+  {
+    "id": "0kf7N8KGnqA",
+    "title": "⚡ 60 giây | Bảy AI agent dựng quảng cáo, ai giữ ví? #Shorts",
+    "date": "2026-11-22",
+    "description": "🔥 Hot News 20/11/2026: Bảy AI agent dựng quảng cáo, ai giữ ví? AI dựng quảng cáo. Bạn có biết đơn nào thực sự về? 📺 Bản đầy đủ + các tin nóng khác: https://ducnguyen.vn/news/opc/hot-today/ — 👤 Hot News by Nguyễn Quang Đức — tin OPC News NÓN",
+    "kind": "Short",
+    "approved": true,
+    "publishedAt": "2026-11-21T09:05:09-08:00"
+  },
+  {
+    "id": "sxBMRLsEf5I",
+    "title": "⚡ 60 giây | Biotech một người: Cody Tranbarger điều phối 11 lab tìm thuốc #Shorts",
+    "date": "2026-11-21",
+    "description": "🔥 Hot News 19/11/2026: Biotech một người: Cody Tranbarger điều phối 11 lab tìm thuốc Một người toàn thời gian phối hợp 11 phòng lab bên ngoài để nghiên cứu bệnh hiếm. 📺 Bản đầy đủ + các tin nóng khác: https://ducnguyen.vn/news/opc/hot-today",
+    "kind": "Short",
+    "approved": true,
+    "publishedAt": "2026-11-21T07:47:30-08:00"
+  },
+  {
+    "id": "EHcOQO9twqU",
+    "title": "⚡ 60 giây | AI nuốt 80% traffic: công ty một người xoay trục thế nào? #Shorts",
+    "date": "2026-11-18",
+    "description": "🔥 Hot News 18/11/2026: AI nuốt 80% traffic: công ty một người xoay trục thế nào? Đứng top 1 Google mà vẫn mất hơn 80% khách: câu chuyện của một công ty một người ở Berlin và cách anh ấy xoay trục. 📺 Bản đầy đủ + các tin nóng khác: https://d",
+    "kind": "Short",
+    "approved": true,
+    "publishedAt": "2026-11-18T01:19:51-08:00"
+  },
+  {
+    "id": "KH2pby7QZDk",
+    "title": "⚡ 60 giây | Vibe-coding lộ hộ chiếu: cái bẫy của công ty một người #Shorts",
+    "date": "2026-11-17",
+    "description": "🔥 Hot News 17/11/2026: Vibe-coding lộ hộ chiếu: cái bẫy của công ty một người Hàng nghìn app dựng bằng AI trên Lovable vừa bị phát hiện để lộ hộ chiếu và tin nhắn khách hàng. Solopreneur cần biết chuyện này trước khi bấm Publish. 📺 Bản đầy ",
+    "kind": "Short",
+    "approved": true,
+    "publishedAt": "2026-11-16T20:19:27-08:00"
+  },
+  {
+    "id": "VfaY2SyqnKc",
+    "title": "⚡ 60 giây | Kỷ nguyên One-Person Company: 1 người vận hành doanh nghiệp triệu USD nhờ AI Agents",
+    "date": "2026-11-16",
+    "description": "🔥 Hot News 16/11/2026: Kỷ nguyên One-Person Company: 1 người vận hành doanh nghiệp triệu USD nhờ AI Agents Làn sóng One-Person Company đang bùng nổ toàn cầu: một cá nhân duy nhất nay có thể tạo ra doanh nghiệp triệu đô nhờ đòn bẩy AI Agents",
+    "kind": "Short",
+    "approved": true,
+    "publishedAt": "2026-11-16T04:19:45-08:00"
+  }
+];
