@@ -59,7 +59,11 @@ export const newsIssues = [
     "description": "Khi học viên nhắn hỏi cách nộp bài ngay lúc bạn đang dạy lớp khác, ai sẽ trả lời? Một bản cập nhật của Circle gợi ý cách chia việc để người mở lớp vẫn giữ được thời gian chấm bài và phản hồi. 📋 Nội dung chính trong video: • Circle chia vai ",
     "kind": "Video",
     "approved": true,
-    "publishedAt": "2026-11-21T09:13:23-08:00"
+    "publishedAt": "2026-11-21T09:13:23-08:00",
+    "issueDate": "2026-11-21",
+    "issueTitle": "Một người mở lớp, AI trực đến đâu?",
+    "summary": "Bạn đang dạy mà hộp thư lớp cứ reo. Giao câu nào cho AI?",
+    "issueKey": "circle"
   },
   {
     "id": "JcWBMikQUnw",
@@ -68,7 +72,11 @@ export const newsIssues = [
     "description": "Bạn tự bán hàng, viết quảng cáo rồi cuối ngày mở từng bảng báo cáo để xem tiền đi đâu. Nếu giao phần chuẩn bị cho AI, bạn vẫn cần trả lời câu hỏi quan trọng nhất: đơn hàng nào thực sự về? 📋 Nội dung chính trong video: • Bảy vai sau một bảng",
     "kind": "Video",
     "approved": true,
-    "publishedAt": "2026-11-21T09:04:39-08:00"
+    "publishedAt": "2026-11-21T09:04:39-08:00",
+    "issueDate": "2026-11-20",
+    "issueTitle": "Bảy AI agent dựng quảng cáo, ai giữ ví?",
+    "summary": "AI dựng quảng cáo. Bạn có biết đơn nào thực sự về?",
+    "issueKey": "advertising"
   },
   {
     "id": "R6gABqeBzDw",
@@ -77,7 +85,11 @@ export const newsIssues = [
     "description": "Bạn viết bài hướng dẫn tốt nhất về một chủ đề, đứng top 1 Google, vậy mà người đọc vẫn không bấm vào. Sáng nay, hai cuộc thảo luận cùng lên trang nhất Hacker News: một nghiên cứu cho thấy khung trả lời bằng AI của Google cắt gần 40% lượt bấ",
     "kind": "Video",
     "approved": true,
-    "publishedAt": "2026-11-18T01:19:16-08:00"
+    "publishedAt": "2026-11-18T01:19:16-08:00",
+    "issueDate": "2026-11-18",
+    "issueTitle": "AI nuốt 80% traffic: công ty một người xoay trục thế nào?",
+    "summary": "Đứng top 1 Google mà vẫn mất hơn 80% khách: câu chuyện của một công ty một người ở Berlin và cách anh ấy xoay trục.",
+    "issueKey": "traffic"
   },
   {
     "id": "6b8MqyDW9no",
@@ -86,7 +98,11 @@ export const newsIssues = [
     "description": "Gõ vài câu tiếng Việt, vài phút sau đã có một ứng dụng hoàn chỉnh: có đăng nhập, có cơ sở dữ liệu, có cả trang thanh toán. Đó là lời hứa khiến đông đảo solopreneur mê mẩn các nền tảng dựng app bằng AI. Nhưng cuối tuần qua, một báo cáo bảo m",
     "kind": "Video",
     "approved": true,
-    "publishedAt": "2026-11-16T20:19:45-08:00"
+    "publishedAt": "2026-11-16T20:19:45-08:00",
+    "issueDate": "2026-11-17",
+    "issueTitle": "Vibe-coding lộ hộ chiếu: cái bẫy của công ty một người",
+    "summary": "Hàng nghìn app dựng bằng AI trên Lovable vừa bị phát hiện để lộ hộ chiếu và tin nhắn khách hàng. Solopreneur cần biết chuyện này trước khi bấm Publish.",
+    "issueKey": "vibe"
   },
   {
     "id": "gX2hXEYFwak",
@@ -95,7 +111,11 @@ export const newsIssues = [
     "description": "Bạn đã bao giờ tưởng tượng một cá nhân duy nhất có thể điều hành doanh nghiệp triệu đô mà không cần bất kỳ nhân viên nào chưa? Điều tưởng chừng viễn tưởng này đang trở thành hiện thực ngay trước mắt chúng ta. Làn sóng One-Person Company và ",
     "kind": "Video",
     "approved": true,
-    "publishedAt": "2026-11-16T04:19:44-08:00"
+    "publishedAt": "2026-11-16T04:19:44-08:00",
+    "issueDate": "2026-11-16",
+    "issueTitle": "Kỷ nguyên One-Person Company: 1 người vận hành doanh nghiệp triệu USD nhờ AI Agents",
+    "summary": "Làn sóng One-Person Company đang bùng nổ toàn cầu: một cá nhân duy nhất nay có thể tạo ra doanh nghiệp triệu đô nhờ đòn bẩy AI Agents.",
+    "issueKey": "opc-era"
   },
   {
     "id": "1V1lzXlZCrQ",
@@ -104,7 +124,11 @@ export const newsIssues = [
     "description": "🔥 Hot News 21/11/2026: Một người mở lớp, AI trực đến đâu? Bạn đang dạy mà hộp thư lớp cứ reo. Giao câu nào cho AI? 📺 Bản đầy đủ + các tin nóng khác: https://ducnguyen.vn/news/opc/hot-today/ — 👤 Hot News by Nguyễn Quang Đức — tin OPC News NÓ",
     "kind": "Short",
     "approved": true,
-    "publishedAt": "2026-11-21T09:16:21-08:00"
+    "publishedAt": "2026-11-21T09:16:21-08:00",
+    "issueDate": "2026-11-21",
+    "issueTitle": "Một người mở lớp, AI trực đến đâu?",
+    "summary": "Bạn đang dạy mà hộp thư lớp cứ reo. Giao câu nào cho AI?",
+    "issueKey": "circle"
   },
   {
     "id": "0kf7N8KGnqA",
@@ -113,7 +137,11 @@ export const newsIssues = [
     "description": "🔥 Hot News 20/11/2026: Bảy AI agent dựng quảng cáo, ai giữ ví? AI dựng quảng cáo. Bạn có biết đơn nào thực sự về? 📺 Bản đầy đủ + các tin nóng khác: https://ducnguyen.vn/news/opc/hot-today/ — 👤 Hot News by Nguyễn Quang Đức — tin OPC News NÓN",
     "kind": "Short",
     "approved": true,
-    "publishedAt": "2026-11-21T09:05:09-08:00"
+    "publishedAt": "2026-11-21T09:05:09-08:00",
+    "issueDate": "2026-11-20",
+    "issueTitle": "Bảy AI agent dựng quảng cáo, ai giữ ví?",
+    "summary": "AI dựng quảng cáo. Bạn có biết đơn nào thực sự về?",
+    "issueKey": "advertising"
   },
   {
     "id": "sxBMRLsEf5I",
@@ -122,7 +150,11 @@ export const newsIssues = [
     "description": "🔥 Hot News 19/11/2026: Biotech một người: Cody Tranbarger điều phối 11 lab tìm thuốc Một người toàn thời gian phối hợp 11 phòng lab bên ngoài để nghiên cứu bệnh hiếm. 📺 Bản đầy đủ + các tin nóng khác: https://ducnguyen.vn/news/opc/hot-today",
     "kind": "Short",
     "approved": true,
-    "publishedAt": "2026-11-21T07:47:30-08:00"
+    "publishedAt": "2026-11-21T07:47:30-08:00",
+    "issueDate": "2026-11-19",
+    "issueTitle": "Biotech một người: Cody Tranbarger điều phối 11 lab tìm thuốc",
+    "summary": "Một người toàn thời gian phối hợp 11 phòng lab bên ngoài để nghiên cứu bệnh hiếm.",
+    "issueKey": "biotech"
   },
   {
     "id": "EHcOQO9twqU",
@@ -131,7 +163,11 @@ export const newsIssues = [
     "description": "🔥 Hot News 18/11/2026: AI nuốt 80% traffic: công ty một người xoay trục thế nào? Đứng top 1 Google mà vẫn mất hơn 80% khách: câu chuyện của một công ty một người ở Berlin và cách anh ấy xoay trục. 📺 Bản đầy đủ + các tin nóng khác: https://d",
     "kind": "Short",
     "approved": true,
-    "publishedAt": "2026-11-18T01:19:51-08:00"
+    "publishedAt": "2026-11-18T01:19:51-08:00",
+    "issueDate": "2026-11-18",
+    "issueTitle": "AI nuốt 80% traffic: công ty một người xoay trục thế nào?",
+    "summary": "Đứng top 1 Google mà vẫn mất hơn 80% khách: câu chuyện của một công ty một người ở Berlin và cách anh ấy xoay trục.",
+    "issueKey": "traffic"
   },
   {
     "id": "KH2pby7QZDk",
@@ -140,7 +176,11 @@ export const newsIssues = [
     "description": "🔥 Hot News 17/11/2026: Vibe-coding lộ hộ chiếu: cái bẫy của công ty một người Hàng nghìn app dựng bằng AI trên Lovable vừa bị phát hiện để lộ hộ chiếu và tin nhắn khách hàng. Solopreneur cần biết chuyện này trước khi bấm Publish. 📺 Bản đầy ",
     "kind": "Short",
     "approved": true,
-    "publishedAt": "2026-11-16T20:19:27-08:00"
+    "publishedAt": "2026-11-16T20:19:27-08:00",
+    "issueDate": "2026-11-17",
+    "issueTitle": "Vibe-coding lộ hộ chiếu: cái bẫy của công ty một người",
+    "summary": "Hàng nghìn app dựng bằng AI trên Lovable vừa bị phát hiện để lộ hộ chiếu và tin nhắn khách hàng. Solopreneur cần biết chuyện này trước khi bấm Publish.",
+    "issueKey": "vibe"
   },
   {
     "id": "VfaY2SyqnKc",
@@ -149,6 +189,23 @@ export const newsIssues = [
     "description": "🔥 Hot News 16/11/2026: Kỷ nguyên One-Person Company: 1 người vận hành doanh nghiệp triệu USD nhờ AI Agents Làn sóng One-Person Company đang bùng nổ toàn cầu: một cá nhân duy nhất nay có thể tạo ra doanh nghiệp triệu đô nhờ đòn bẩy AI Agents",
     "kind": "Short",
     "approved": true,
-    "publishedAt": "2026-11-16T04:19:45-08:00"
+    "publishedAt": "2026-11-16T04:19:45-08:00",
+    "issueDate": "2026-11-16",
+    "issueTitle": "Kỷ nguyên One-Person Company: 1 người vận hành doanh nghiệp triệu USD nhờ AI Agents",
+    "summary": "Làn sóng One-Person Company đang bùng nổ toàn cầu: một cá nhân duy nhất nay có thể tạo ra doanh nghiệp triệu đô nhờ đòn bẩy AI Agents.",
+    "issueKey": "opc-era"
+  },
+  {
+    "id": "WWfoAaaaGH4",
+    "title": "OPC News | 19/11/2026 | Biotech một người: Cody Tranbarger điều phối 11 lab tìm thuốc",
+    "date": "2026-11-21",
+    "publishedAt": "2026-11-21T07:41:23-08:00",
+    "description": "Một người toàn thời gian phối hợp 11 phòng lab bên ngoài để nghiên cứu bệnh hiếm.",
+    "kind": "Video",
+    "approved": true,
+    "issueDate": "2026-11-19",
+    "issueTitle": "Biotech một người: Cody Tranbarger điều phối 11 lab tìm thuốc",
+    "summary": "Một người toàn thời gian phối hợp 11 phòng lab bên ngoài để nghiên cứu bệnh hiếm.",
+    "issueKey": "biotech"
   }
 ];

@@ -2,7 +2,7 @@ name: Product site
 on:
   pull_request:
   push:
-    branches: [master, codex/opcos-content-release]
+    branches: [master, codex/opcos-content-release, codex/news-video-view]
 permissions:
   contents: read
 jobs:
