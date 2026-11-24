@@ -28,7 +28,7 @@ for (const filter of document.querySelectorAll('[data-filter]')) {
     const params = new URLSearchParams()
     if (query.value) params.set('q', query.value)
     if (group?.value) params.set('group', group.value)
-    if (group) for (const link of links) link.search = params
+    if (filter.dataset.filter === 'plugins') for (const link of links) link.search = params
   }
   const restore = () => {
     const params = new URLSearchParams(history.state?.filter || location.search)
