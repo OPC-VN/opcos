@@ -77,6 +77,7 @@ details[open] > summary::after { transform: rotate(225deg); margin-bottom: -.25r
 .product { position: relative; }
 .flyout { position: absolute; z-index: 2; width: max-content; min-width: 10rem; padding: .4rem; border: 1px solid var(--border-strong); border-radius: var(--radius-md); background: var(--bg-elevated); box-shadow: var(--shadow-pop); }
 .flyout a { display: block; padding: .5rem .7rem; min-height: 44px; }
+.desktop-nav .product:last-child .flyout { right: 0; }
 .mobile-nav { display: none; }
 .skip { position: fixed; top: .4rem; left: .4rem; translate: 0 -200%; z-index: 4; background: var(--panel); padding: .6rem; }
 .skip:focus { translate: 0; }
@@ -147,7 +148,12 @@ figcaption { color: var(--text-soft); margin-top: 1rem; text-align: center; font
 .rows dt { font-weight: 650; }
 .rows dd { color: var(--text-soft); }
 .callout { margin-top: 2rem; }
-.empty-editorial { max-width: 55ch; }
+.empty-editorial, .news-latest { max-width: 70ch; }
+.editorial-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; font-size: .9rem; }
+.news-year + .news-year { margin-top: var(--space-5); }
+.news-archive { max-width: 70ch; padding: 0; border-top: 1px solid var(--border); list-style: none; }
+.news-archive li { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: var(--space-5); padding: .7rem 0; border-bottom: 1px solid var(--border); }
+.news-archive time { color: var(--text-soft); font-size: .9rem; }
 .reading-layout { display: grid; grid-template-columns: var(--space-7) minmax(0, 70ch); gap: clamp(1.5rem, 4vw, 3.5rem); }
 .toc { background: var(--rail); border: 1px solid var(--border); padding: .35rem .65rem; border-radius: var(--radius-lg); }
 .toc ul { margin: 0 0 .5rem; padding: 0 0 0 1.3rem; }
@@ -188,6 +194,7 @@ footer { background: var(--bg-elevated); border-top: 1px solid var(--border); pa
   .orbit-scene { --wire-angle: 32deg; }
   .split-band, .footer-grid { grid-template-columns: 1fr; }
   .rows > div { grid-template-columns: 1fr; }
+  .news-archive li { grid-template-columns: 1fr; gap: .2rem; }
   .actions { align-items: flex-start; flex-direction: column; }
   .filter-controls { flex-direction: column; align-items: stretch; }
   .filter-controls label { flex: auto; }
