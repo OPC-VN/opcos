@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OpcOS Orbit · Bảng điều khiển thoại cho tổ đội AI-agent</title>
-<meta name="description" content="OpcOS Orbit là console mã nguồn mở: điều phối Claude, Codex, Gemini, Antigravity và Ollama bằng giọng nói hoặc gõ chữ, theo dõi realtime agent nào đang bận — đang chờ bạn — đã xong.">
+<meta name="description" content="Orbit là bảng điều khiển chạy trên máy để giao việc cho trợ lý AI và theo dõi tiến độ. Ứng dụng dành cho người đã được cấp quyền.">
 <meta name="theme-color" content="#2f6df6" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0e0f13" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="OpcOS Orbit · voice console điều phối multi-agent">
-<meta property="og:description" content="Một Lead phân việc cho nhiều CLI agent, dashboard realtime blocked/working/done, voice hai chiều tuỳ chọn. Mã nguồn mở, MIT.">
+<meta property="og:description" content="Giao việc cho trợ lý AI, xem tiến độ và đọc kết quả trên máy. Giọng nói là tùy chọn.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://ducnguyen.vn/opcos/orbit/">
-<meta property="og:image" content="https://ducnguyen.vn/opcos/orbit/og-image.png">
+<meta property="og:url" content="https://opc-vn.github.io/opcos/orbit/">
+<meta property="og:image" content="https://opc-vn.github.io/opcos/orbit/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="OpcOS Orbit · voice console điều phối multi-agent">
-<meta name="twitter:image" content="https://ducnguyen.vn/opcos/orbit/og-image.png">
+<meta name="twitter:image" content="https://opc-vn.github.io/opcos/orbit/og-image.png">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -280,29 +280,6 @@
 
   .install{background:var(--bg-tint);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
   .install-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
-  .code-card{
-    background:var(--code-bg);border:1px solid var(--code-border);border-radius:var(--radius);
-    box-shadow:var(--shadow-lg);overflow:hidden;
-  }
-  .code-top{display:flex;align-items:center;gap:8px;padding:11px 15px;border-bottom:1px solid var(--code-border)}
-  .code-top .fn{font-family:var(--mono);font-size:12.5px;color:#9aa3b2;margin-left:2px}
-  .copy-btn{
-    margin-left:auto;display:inline-flex;align-items:center;gap:6px;cursor:pointer;
-    font-family:var(--font);font-size:12.5px;font-weight:600;color:#cdd4e0;
-    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-    padding:5px 11px;border-radius:8px;transition:background .15s,color .15s;
-  }
-  .copy-btn:hover{background:rgba(255,255,255,.12);color:#fff}
-  .copy-btn svg{width:14px;height:14px}
-  .copy-btn.done{color:#3ec38a;border-color:rgba(62,195,138,.4)}
-  .code-scroll{overflow-x:auto}
-  pre{margin:0;padding:18px 18px 20px}
-  pre code{
-    font-family:var(--mono);font-size:13px;line-height:1.85;color:var(--code-text);
-    white-space:pre;display:block;
-  }
-  .code-scroll .cm{color:#6f7a8d}
-  .code-scroll .pr{color:#7b8bff}
   .install-copy h2{font-size:clamp(1.7rem,3.6vw,2.3rem);font-weight:800}
   .install-copy p{margin-top:14px;color:var(--muted);line-height:1.6}
   .req{margin-top:22px;display:flex;flex-direction:column;gap:11px}
@@ -371,10 +348,7 @@
       <a href="#cai-dat">Cài đặt</a>
       <a href="#rieng-tu">Riêng tư</a>
     </nav>
-    <a class="btn btn-ghost btn-sm gh" href="https://github.com/ducnguyen221/opcos-orbit" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 2.5-.34c.85 0 1.71.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-      GitHub
-    </a>
+    <a class="btn btn-ghost btn-sm gh" href="../ecosystem/plugins/index.html">Plugin OpcOS</a>
   </div>
 </header>
 
@@ -385,7 +359,7 @@
     <div class="hero-copy">
       <span class="hero-badge">
         <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
-        Mã nguồn mở &nbsp;·&nbsp; <b>Chạy trên máy bạn</b>
+        Bản giới thiệu &nbsp;·&nbsp; <b>Chạy trên máy bạn</b>
       </span>
       <h1>Một bảng điều khiển cho<br><span class="hl">cả tổ đội AI-agent</span> của bạn.</h1>
       <p class="lead">Nói hoặc gõ một câu — Lead phân việc cho Claude, Codex, Gemini, Antigravity hoặc Ollama. Xem ngay agent nào đang bận, agent nào đang chờ bạn duyệt, agent nào đã xong.</p>
@@ -394,14 +368,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
           Cài đặt
         </a>
-        <a class="btn btn-ghost" href="https://github.com/ducnguyen221/opcos-orbit" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 2.5-.34c.85 0 1.71.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-          Xem trên GitHub
-        </a>
+        <a class="btn btn-ghost" href="../ecosystem/index.html">Khám phá hệ OpcOS</a>
       </div>
       <div class="tech-badges">
         <span class="tb local"><span class="g"></span>Voice tuỳ chọn</span>
-        <span class="tb"><span class="g"></span>MIT License</span>
         <span class="tb"><span class="g"></span>Windows</span>
         <span class="tb"><span class="g"></span>5 engine agent</span>
       </div>
@@ -543,8 +513,8 @@
   <div class="wrap install-grid">
     <div class="install-copy reveal">
       <span class="eyebrow"><span class="dot"></span>Cài đặt</span>
-      <h2 style="margin-top:14px">Chạy được sau vài dòng lệnh</h2>
-      <p>Clone repo, chạy script cài một lần, rồi khởi động. Chỉ cần các CLI agent bạn muốn dùng đã cài + đăng nhập sẵn trên máy — voice là tuỳ chọn.</p>
+      <h2 style="margin-top:14px">Điều kiện dùng Orbit</h2>
+      <p>Dùng bản Orbit đã được cấp quyền và làm theo hướng dẫn đi kèm. Chuẩn bị ít nhất một trợ lý AI đã đăng nhập trên máy. Bạn có thể bắt đầu bằng cách gõ chữ.</p>
       <div class="req">
         <ul>
           <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span><b>Windows</b> và <b>Python 3.11+</b></span></li>
@@ -552,28 +522,14 @@
           <li><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span>Tuỳ chọn: <b>GPU NVIDIA</b> cho voice realtime (faster-whisper)</span></li>
         </ul>
       </div>
-      <a class="btn btn-ghost" style="margin-top:24px" href="https://github.com/ducnguyen221/opcos-orbit#readme" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>
-        Đọc README chi tiết
-      </a>
+      <a class="btn btn-ghost" style="margin-top:24px" href="../ecosystem/orbit/index.html">Xem hướng dẫn bắt đầu với Orbit</a>
     </div>
 
-    <div class="code-card reveal">
-      <div class="code-top">
-        <span class="pv-live" style="gap:6px"><span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;display:inline-block"></span><span style="width:11px;height:11px;border-radius:50%;background:#febc2e;display:inline-block"></span><span style="width:11px;height:11px;border-radius:50%;background:#28c840;display:inline-block"></span></span>
-        <span class="fn">PowerShell</span>
-        <button class="copy-btn" id="copyBtn" type="button" aria-label="Sao chép lệnh cài đặt">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          <span class="lbl">Sao chép</span>
-        </button>
-      </div>
-      <div class="code-scroll">
-<pre><code id="installCode"><span class="pr">git</span> clone https://github.com/ducnguyen221/opcos-orbit
-<span class="pr">cd</span> opcos-orbit
-<span class="pr">powershell</span> -ExecutionPolicy Bypass -File install.ps1   <span class="cm"># venv + deps + config.json</span>
-<span class="pr">powershell</span> -ExecutionPolicy Bypass -File run.ps1       <span class="cm"># mở localhost:7788</span></code></pre>
-      </div>
-    </div>
+    <aside class="install-copy">
+      <h2>Thử một việc bằng chữ</h2>
+      <p>Mở Orbit, giao việc tóm tắt ba ý và xem lại kết quả trong lịch sử trao đổi.</p>
+      <p>Bạn có thể chuẩn bị quy tắc và thử plugin với <a href="../ecosystem/install/index.html">bản mẫu OpcOS công khai</a>.</p>
+    </aside>
   </div>
 </section>
 
@@ -582,7 +538,7 @@
     <div class="sec-head reveal">
       <span class="eyebrow"><span class="dot"></span>Riêng tư &amp; minh bạch</span>
       <h2>Bạn tự quyết dữ liệu đi đâu</h2>
-      <p>Orbit là lớp điều phối, không phải nơi lưu key hay chặn dữ liệu của bạn. So sánh nhanh với cách làm thủ công thường thấy.</p>
+      <p>Orbit điều phối các trợ lý bạn chọn. Kiểm tra nơi nội dung được lưu và cách từng trợ lý xử lý dữ liệu trước khi giao việc.</p>
     </div>
     <div class="cmp-wrap reveal">
       <table class="compare">
@@ -601,7 +557,7 @@
           </tr>
           <tr>
             <td class="lbl">API key</td>
-            <td class="us"><span class="yes">App không giữ, không đọc</span></td>
+            <td class="us">Theo tài khoản và cấu hình của từng trợ lý</td>
             <td>Tuỳ cách bạn tự quản lý</td>
           </tr>
           <tr>
@@ -611,7 +567,7 @@
           </tr>
           <tr>
             <td class="lbl">Chi phí sử dụng</td>
-            <td class="us">Miễn phí (Orbit) + theo CLI/engine bạn chọn</td>
+            <td class="us">Tùy trợ lý và dịch vụ bạn chọn</td>
             <td>Như nhau — chỉ khác cách nhìn</td>
           </tr>
         </tbody>
@@ -620,7 +576,7 @@
 
     <div class="legal reveal" style="margin-top:26px">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/></svg>
-      <p><b>Lưu ý:</b> Orbit spawn CLI agent thật (Claude Code, Codex, Gemini…) — dữ liệu bạn gửi qua các CLI này tuân theo chính sách riêng của từng nhà cung cấp, Orbit không can thiệp hay lưu lại. Chỉ STT/TTS và engine Ollama chạy 100% cục bộ.</p>
+      <p><b>Lưu ý:</b> Orbit có thể lưu lịch sử trao đổi trên máy. Khi một việc được giao cho trợ lý của nhà cung cấp bên ngoài, nội dung gửi đi tuân theo chính sách của dịch vụ đó.</p>
     </div>
   </div>
 </section>
@@ -629,16 +585,13 @@
   <div class="wrap reveal">
     <span class="eyebrow" style="justify-content:center"><span class="dot"></span>Sẵn sàng dùng thử</span>
     <h2 style="margin-top:14px">Ngừng đoán agent nào đang làm gì</h2>
-    <p>Mã nguồn mở, giấy phép MIT. Cài trong vài phút, điều phối tổ đội agent của bạn từ một chỗ.</p>
+    <p>Nếu đã có quyền dùng Orbit, hãy bắt đầu bằng một yêu cầu ngắn và xem cách hệ thống trả kết quả.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="#cai-dat">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7 12 5 5 5-5"/><path d="M5 21h14"/></svg>
         Cài đặt
       </a>
-      <a class="btn btn-ghost" href="https://github.com/ducnguyen221/opcos-orbit" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 2.5-.34c.85 0 1.71.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-        GitHub
-      </a>
+      <a class="btn btn-ghost" href="../ecosystem/plugins/index.html">Xem danh mục plugin</a>
     </div>
   </div>
 </section>
@@ -649,7 +602,7 @@
   <div class="wrap foot">
     <div>
       <a class="brand" href="#top"><img src="logo.png" alt="OpcOS Orbit logo">OpcOS Orbit</a>
-      <p class="foot-tag">Console mã nguồn mở điều phối multi-agent bằng giọng nói. Chạy trên máy bạn, dùng CLI bạn đã có.</p>
+      <p class="foot-tag">Giao diện trên máy để giao việc và theo dõi tiến độ của trợ lý AI.</p>
     </div>
     <div class="foot-links">
       <div class="foot-col">
@@ -661,15 +614,14 @@
       </div>
       <div class="foot-col">
         <b>Tài nguyên</b>
-        <a href="https://github.com/ducnguyen221/opcos-orbit#readme" target="_blank" rel="noopener">README</a>
-        <a href="https://github.com/ducnguyen221/opcos-orbit" target="_blank" rel="noopener">Repo GitHub</a>
-        <a href="https://github.com/ducnguyen221/opcos" target="_blank" rel="noopener">opcos (harness)</a>
+        <a href="../ecosystem/index.html">Trang chủ OpcOS</a>
+        <a href="../ecosystem/plugins/index.html">Danh mục plugin</a>
+        <a href="../ecosystem/docs/index.html">Tài liệu OpcOS</a>
         <a href="https://ducnguyen.vn" target="_blank" rel="noopener">Trang tác giả</a>
       </div>
     </div>
   </div>
   <div class="wrap foot-bottom">
-    <span class="lic">MIT License</span>
     <span>© 2026 Duc Nguyen · <a href="https://ducnguyen.vn" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">ducnguyen.vn</a></span>
   </div>
 </footer>
@@ -680,38 +632,6 @@
     var onScroll = function(){ h.classList.toggle('scrolled', window.scrollY > 8); };
     window.addEventListener('scroll', onScroll, {passive:true});
     onScroll();
-  })();
-
-  (function(){
-    var btn = document.getElementById('copyBtn');
-    var codeEl = document.getElementById('installCode');
-    if(!btn || !codeEl) return;
-    var label = btn.querySelector('.lbl');
-    var cmd = [
-      'git clone https://github.com/ducnguyen221/opcos-orbit',
-      'cd opcos-orbit',
-      'powershell -ExecutionPolicy Bypass -File install.ps1',
-      'powershell -ExecutionPolicy Bypass -File run.ps1'
-    ].join('\n');
-    function flash(ok){
-      btn.classList.toggle('done', ok);
-      label.textContent = ok ? 'Đã chép' : 'Lỗi, chép tay';
-      setTimeout(function(){ btn.classList.remove('done'); label.textContent = 'Sao chép'; }, 1900);
-    }
-    function fallback(){
-      try{
-        var ta = document.createElement('textarea');
-        ta.value = cmd; ta.style.position='fixed'; ta.style.opacity='0';
-        document.body.appendChild(ta); ta.select();
-        var ok = document.execCommand('copy');
-        document.body.removeChild(ta); flash(ok);
-      }catch(e){ flash(false); }
-    }
-    btn.addEventListener('click', function(){
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(cmd).then(function(){ flash(true); }, fallback);
-      } else { fallback(); }
-    });
   })();
 
   (function(){
